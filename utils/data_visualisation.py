@@ -1,6 +1,7 @@
 import pandas as pd
 import plotly.graph_objects as go
 from PIL import Image
+import folium
 
 def create_time_distance_graph(df):
     image_path = "images/bg.jpg"
@@ -160,3 +161,32 @@ def create_speed_distance_graph(df):
     )
 
     return fig.show()
+
+
+def plot_line_map(df):
+    latitudes = df['Latitude'].tolist()
+    longitudes = df['Longitude'].tolist()
+    distances = df['Total Distance (M)'].tolist()
+    altitudes = df['Altitude (M)'].tolist()
+    times = df['Total Time (M)'].tolist()
+
+    center_lat = sum(latitudes) / len(latitudes)
+    center_lon = sum(longitudes) / len(longitudes)
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=10)
+
+    route_coordinates = list(zip(latitudes, longitudes))
+
+    folium.PolyLine(locations=route_coordinates, color='blue', weight=5, opacity=0.7).add_to(m)
+
+    for lat, lon, dist, alt, time in zip(latitudes, longitudes, distances, altitudes, times):
+        folium.CircleMarker(
+            location=[lat, lon],
+            radius=3,
+            color='red',
+            fill=True,
+            fill_color='red',
+            fill_opacity=0.7,
+            tooltip=f"Distance: {round(dist / 1000, 2)} Km, Altitude: {round(alt, 1)} Metres, Time: {round(time, 1)} Minutes"
+        ).add_to(m)
+        
+    return m
