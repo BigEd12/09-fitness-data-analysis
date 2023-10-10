@@ -1,4 +1,5 @@
 import pandas as pd
+import plotly.express as px
 import plotly.graph_objects as go
 from PIL import Image
 import folium
@@ -190,3 +191,15 @@ def plot_line_map(df):
         ).add_to(m)
         
     return m
+
+
+def altitude_time_speed_graph(df):
+    fig = px.scatter(df, x='Total Time (M)', y='Altitude (M)', color='Segment Speed', color_continuous_scale='Viridis',
+                     hover_data=['Altitude (M)'], labels={'Altitude (M)': 'Altitude (m)'}, title='2D Scatter Plot with Gradient Line')
+
+    fig.add_trace(px.line(df, x='Total Time (M)', y='Altitude (M)', color='Altitude (M)').data[0])
+
+    fig.update_traces(line=dict(width=4), hovertemplate='Total Time (M): %{y:.1f}<br>Altitude (M): %{y:.1f}<br>Segment Speed (Km/h): %{marker.color:.2f}<extra></extra>')
+    fig.update_coloraxes(colorbar_title='Speed (m/s)')
+
+    return fig.show()
