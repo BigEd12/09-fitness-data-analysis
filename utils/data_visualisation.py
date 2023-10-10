@@ -195,11 +195,27 @@ def plot_line_map(df):
 
 def altitude_time_speed_graph(df):
     fig = px.scatter(df, x='Total Time (M)', y='Altitude (M)', color='Segment Speed', color_continuous_scale='Viridis',
-                     hover_data=['Altitude (M)'], labels={'Altitude (M)': 'Altitude (m)'}, title='2D Scatter Plot with Gradient Line')
+                     hover_data=['Total Time (M)', 'Altitude (M)', 'Segment Speed'],
+                     labels={'Total Time (M)': 'Time (mins)', 'Altitude (M)': 'Altitude (m)'},
+                     title='Time by Altitude and Speed')
 
     fig.add_trace(px.line(df, x='Total Time (M)', y='Altitude (M)', color='Altitude (M)').data[0])
 
-    fig.update_traces(line=dict(width=4), hovertemplate='Total Time (M): %{y:.1f}<br>Altitude (M): %{y:.1f}<br>Segment Speed (Km/h): %{marker.color:.2f}<extra></extra>')
+    fig.update_traces(line=dict(width=4), hovertemplate='Time: %{x:.1f} mins<br>Altitude: %{y:.1f} m<br>Segment Speed: %{marker.color:.2f} Km/h<extra></extra>')
+    fig.update_coloraxes(colorbar_title='Speed (m/s)')
+
+    return fig.show()
+
+
+def altitude_distance_speed_graph(df):
+    fig = px.scatter(df, x='Total Distance (KM)', y='Altitude (M)', color='Segment Speed', color_continuous_scale='Viridis',
+                     hover_data=[('Total Distance (KM)'), 'Altitude (M)', 'Segment Speed'],
+                     labels={'Total Distance (KM)': 'Distance (Km)', 'Altitude (M)': 'Altitude (m)'},
+                     title='2D Scatter Plot with Gradient Line')
+
+    fig.add_trace(px.line(df, x='Total Distance (KM)', y='Altitude (M)', color='Altitude (M)').data[0])
+
+    fig.update_traces(line=dict(width=4), hovertemplate='Distance: %{x:.2f} Km<br>Altitude: %{y:.1f} m<br>Segment Speed: %{marker.color:.2f} Km/h<extra></extra>')
     fig.update_coloraxes(colorbar_title='Speed (m/s)')
 
     return fig.show()
