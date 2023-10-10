@@ -87,6 +87,48 @@ def altitude_distance_graph(df):
     return fig.show()
 
 
+def altitude_time_graph(df):
+    image_path = "images/bg.jpg"
+    img = Image.open(image_path)
+    
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(x=df['Total Time (M)'], y=df['Altitude (M)'],
+                   line=dict(width=1, color='red'),
+                   hovertext=['Time={} min, Altitude={} M'.format(round(time, 2), round(altitude, 2))
+                              for time, altitude in zip(df['Total Time (M)'], df['Altitude (M)'])],
+                   mode='lines+markers',
+                   )
+    )
+    
+    x_lims = df.iloc[-1]['Total Time (M)'] * 1.1
+    y_lims = df['Altitude (M)'].max() * 1.1
+    
+    fig.add_layout_image(
+            dict(
+                source=img,
+                xref="x",
+                yref="y",
+                x=0,
+                y=y_lims,
+                sizex=x_lims,
+                sizey=y_lims,
+                sizing="stretch",
+                opacity=0.7,
+                layer="below")
+    )
+
+    fig.update_layout(xaxis_showgrid=False, yaxis_showgrid=False)
+
+    fig.update_xaxes(title_text='Time (min)', range=[0, x_lims])
+    fig.update_yaxes(title_text='Altitude (M)', range=[0, y_lims])
+
+    fig.update_layout(title_text='Altitude over Time')
+
+    return fig.show()
+
+
 
 def distance_speed_graph(df):
     fig = go.Figure()
