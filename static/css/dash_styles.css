@@ -82,3 +82,13 @@
 .fun-stats:hover .zoom-content {
     transform: scale(1.7);
 }
+
+.fun-stats-images {
+    width: 40%;
+    height: 80%;
+}
+
+img {
+    padding-top: 5%;
+    padding-bottom: 3%;
+}

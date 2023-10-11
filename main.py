@@ -32,10 +32,11 @@ def dash():
         
         chart_1 = data_visualisation.altitude_distance_graph(df)
         chart_2 = data_visualisation.altitude_distance_speed_graph(df)
-        print(chart_1)
-        print(type(chart_1))
 
-    return render_template('dash.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2)
+        equator = round((basic_info[0] / 40075) * 100, 2)
+        ascent = round((basic_info[2] / 8849) * 100, 2)
+
+    return render_template('dash.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, ascent=ascent)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
