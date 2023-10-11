@@ -35,8 +35,11 @@ def dash():
 
         equator = round((basic_info[0] / 40075) * 100, 2)
         ascent = round((basic_info[2] / 8849) * 100, 2)
+        
+        animal_speed = data_preparation.find_faster_slower_animals(basic_info[8])
+        print(basic_info[8])
 
-    return render_template('dash.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, ascent=ascent)
+    return render_template('dash.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, ascent=ascent, animal_speed=animal_speed)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

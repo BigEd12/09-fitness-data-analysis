@@ -1,5 +1,6 @@
 from math import radians, sin, cos, sqrt, atan2
 import pandas as pd
+import datetime
 
 import xml.etree.ElementTree as ET
 
@@ -112,6 +113,17 @@ def speed_info(df):
     
     return average, fastest, slowest
 
+def start_date_time(df):
+    """
+    Calculates the start date and time
+    """
+    date_start_pre = df.iloc[0].Time + datetime.timedelta(days=4) - datetime.timedelta(hours=12) - datetime.timedelta(minutes=38)
+    
+    start_date = date_start_pre.strftime("%d-%m-%Y")
+    start_time = date_start_pre.strftime("%H:%M")
+    
+    return [start_date, start_time]
+
 def basic_info(df):
     """
     Returns basic information about the ride.
@@ -127,7 +139,74 @@ def basic_info(df):
     average_speed = round(speed_info(df)[0], 2)
     fastest_speed = round(speed_info(df)[1], 2)
     slowest_speed = round(speed_info(df)[2], 2)
+    start_date = start_date_time(df)
     
     
-    return [distance, moving_time, total_ascent, total_descent, altitude_change, lowest_altitude, highest_altitude, average_speed, fastest_speed, slowest_speed]
+    return [distance, moving_time, total_ascent, total_descent, altitude_change, lowest_altitude, highest_altitude, average_speed, fastest_speed, slowest_speed, start_date]
+
+def find_faster_slower_animals(speed):
+    animals = {
+        'mountain_goat': 45,
+        'cow': 40,
+        'greyhound': 70,
+        'cat': 48,
+        'japanes_macaque': 16,
+        'hippo': 30,
+        'pig': 17,
+        'alligator': 56,
+        'panda': 32,
+        'african_bush_elephant': 40,
+        'anaconda': 8,
+        'grey_squirrel': 20,
+        'giraffe': 52,
+        'grizzly_bear': 56,
+        'brown_bear': 35,
+        'house_mouse': 13,
+        'polar_bear': 30,
+    }
+    
+    animal_images = {
+        'mountain_goat': '2',
+        'cow': '3',
+        'greyhound': '4',
+        'cat': '5',
+        'japanes_macaque': '6',
+        'hippo': '7',
+        'pig': '10',
+        'alligator': '8',
+        'panda': '0',
+        'african_bush_elephant': '1',
+        'anaconda': '9',
+        'grey_squirrel': '11',
+        'giraffe': '12',
+        'grizzly_bear': '13',
+        'brown_bear': '13',
+        'house_mouse': '15',
+        'polar_bear': '14',
+    }
+
+    above_speed = 1000
+    above_animal = ''
+    below_speed = 0
+    below_animal = ''
+
+
+    for idx, (key, value) in enumerate(animals.items()):
+        if value > speed:
+            if above_speed > value:
+                above_speed = value
+                above_animal = key
+        elif value < speed:
+            if below_speed < value:
+                below_speed = value
+                below_animal = key
+
+        if idx == len(animals) -1:
+            animal_images[above_animal]
+            above_path = f'/static/images/{animal_images[above_animal]}.png'
+            below_path = f'/static/images/{animal_images[below_animal]}.png'
+            faster_animal = [above_animal, above_speed, above_path]
+            slower_animal = [below_animal, below_speed, below_path]
+
+    return [faster_animal, slower_animal]
     

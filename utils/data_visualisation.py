@@ -45,7 +45,7 @@ def create_time_distance_graph(df):
 
     return fig.show()
 
-def altitude_distance_graph(df):
+def altitude_distance_graph(df, option1=1, option2=2):
     image_path = "images/bg.jpg"
     img = Image.open(image_path)
     
