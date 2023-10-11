@@ -48,7 +48,7 @@ def prepare_df(df):
     
     df['Total Time (M)'] = df['Cumulative Time'].dt.total_seconds() / 60
     
-    df.drop(columns=['Cumulative Time'], inplace=True)
+    df.drop(columns=['Cumulative Time', ], inplace=True)
     
 def haversine(lat1, lon1, lat2, lon2):
     """
