@@ -116,20 +116,18 @@ def basic_info(df):
     """
     Returns basic information about the ride.
     """
-    print(
-        f'The total distance is {round(calc_total_distance(df), 2)} Km.\n'
-        '------------------------------------------------------\n'
-        f'The total moving time is {calc_moving_time(df)}.\n'
-        '------------------------------------------------------\n'
-        f'The total ascent was {elevation_info(df)[0]} Metres.\n'
-        f'The total descent was {elevation_info(df)[1]} Metres.\n'
-        f'The total change was {round(elevation_info(df)[2], 2)} Metres.\n'
-        '------------------------------------------------------\n'
-        f'The lowest altitude was {round(elevation_info(df)[3], 2)} Metres.\n'
-        f'The highest altitude was {round(elevation_info(df)[4], 2)} Metres.\n'
-        '------------------------------------------------------\n'
-        f'The average speed was {round(speed_info(df)[0], 2)} Km/h.\n'
-        f'The fastest speed was {round(speed_info(df)[1], 2)} Km/h.\n'
-        f'The slowest speed was {round(speed_info(df)[2], 2)} Km/h.'
-    )
+    
+    distance = round(calc_total_distance(df), 2)
+    moving_time = calc_moving_time(df)
+    total_ascent = elevation_info(df)[0]
+    total_descent = elevation_info(df)[1]
+    altitude_change = round(elevation_info(df)[2], 2)
+    lowest_altitude = round(elevation_info(df)[3], 2)
+    highest_altitude = round(elevation_info(df)[4], 2)
+    average_speed = round(speed_info(df)[0], 2)
+    fastest_speed = round(speed_info(df)[1], 2)
+    slowest_speed = round(speed_info(df)[2], 2)
+    
+    
+    return distance, moving_time, total_ascent, total_descent, altitude_change, lowest_altitude, highest_altitude, average_speed, fastest_speed, slowest_speed
     
