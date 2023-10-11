@@ -23,8 +23,10 @@
             <div class="col">1.5</div>
             <div class="col">1.6</div>
             <div class="key-info-div"><div class="key-info"><p class="zoom-content">{{ basic_info[0] }} Km</p></div></div>
-            <div class="col map">map</div>
-            <div class="col chart">chart1</div> 
+            <div class="col map">{{ map }}</div>
+            <div class="col chart">
+                <center><iframe src="/temp/altitude_distance_chart.html" width="100%" height="400" frameborder="0"></iframe></center>
+            </div>
             <div class="key-info-div"><div class="key-info"><p class="zoom-content">{{ basic_info[1][0] }} Hrs {{ basic_info[1][1] }} Mins</p></div></div>
             <div class="key-info-div"><div class="key-info"><p class="zoom-content">{{ basic_info[2] }} Metres</p></div></div>
             <div class="key-info-div"><div class="key-info"><p class="zoom-content">{{ basic_info[7] }} Km/ h Avg.</p></div></div>
@@ -43,8 +45,6 @@
             <div class="fun-stats">8.5</div>
         </div>
     </div>
-    
-
 
 </body>
 </html>

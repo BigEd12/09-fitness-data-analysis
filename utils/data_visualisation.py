@@ -83,8 +83,10 @@ def altitude_distance_graph(df):
     fig.update_yaxes(title_text='Altitude (M)', range=[0, y_lims])
 
     fig.update_layout(title_text='Altitude over Distance')
+    
+    fig.write_html("temp/altitude_distance_chart.html")
 
-    return fig.show()
+    return 'altitude_distance_chart.html'
 
 
 def altitude_time_graph(df):
