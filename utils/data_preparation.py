@@ -129,5 +129,5 @@ def basic_info(df):
     slowest_speed = round(speed_info(df)[2], 2)
     
     
-    return distance, moving_time, total_ascent, total_descent, altitude_change, lowest_altitude, highest_altitude, average_speed, fastest_speed, slowest_speed
+    return [distance, moving_time, total_ascent, total_descent, altitude_change, lowest_altitude, highest_altitude, average_speed, fastest_speed, slowest_speed]
     

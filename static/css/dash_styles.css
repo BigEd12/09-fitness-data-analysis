@@ -43,6 +43,7 @@
     background-color: #123C76;
     overflow: hidden;
     width: 60%;
+    padding: 10px;
 }
 
 .zoom-content {
