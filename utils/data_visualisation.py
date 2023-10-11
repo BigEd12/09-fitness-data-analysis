@@ -308,7 +308,9 @@ def plot_line_map(df):
             tooltip=f"Distance: {round(dist / 1000, 2)} Km, Altitude: {round(alt, 1)} Metres, Time: {round(time, 1)} Minutes"
         ).add_to(m)
         
-    return m
+    map_filename = "temp/map.html"
+    m.save(map_filename)
+    return map_filename
 
 
 def altitude_time_speed_graph(df):
@@ -336,4 +338,6 @@ def altitude_distance_speed_graph(df):
     fig.update_traces(line=dict(width=4), hovertemplate='Distance: %{x:.2f} Km<br>Altitude: %{y:.1f} m<br>Segment Speed: %{marker.color:.2f} Km/h<extra></extra>')
     fig.update_coloraxes(colorbar_title='Speed (m/s)')
 
-    return fig.show()
+    fig.write_html("temp/altitude_distance_speed_graph.html")
+
+    return 'altitude_distance_speed_graph.html'
