@@ -41,9 +41,13 @@
     text-align: center;
     border-radius: 20px;
     background-color: #123C76;
-    overflow: hidden;
+    overflow: visible;
     width: 60%;
     padding: 10px;
+    font-size: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .zoom-content {
@@ -75,8 +79,9 @@
     text-align: center;
     border-radius: 20px;
     background-color: #2D8BBA;
-    overflow: hidden;
+    overflow: visible;
     width: 60%;
+    font-size: 24px;
 }
 
 .fun-stats:hover .zoom-content {
