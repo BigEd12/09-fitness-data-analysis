@@ -86,7 +86,7 @@ def altitude_distance_graph(df):
     
     fig.write_html("temp/altitude_distance_chart.html")
 
-    return 'altitude_distance_chart.html'
+    return 'temp/altitude_distance_chart.html'
 
 
 def altitude_time_graph(df):
@@ -298,15 +298,29 @@ def plot_line_map(df):
     folium.PolyLine(locations=route_coordinates, color='blue', weight=5, opacity=0.7).add_to(m)
 
     for lat, lon, dist, alt, time in zip(latitudes, longitudes, distances, altitudes, times):
+        tooltip = folium.Tooltip(
+            text=f"Distance: {round(dist / 1000, 2)} Km<br>Altitude: {round(alt, 1)} Metres, Time: {round(time, 1)} Minutes",
+            style="font-size: 24px; background-color: #123C76; color: #FFFFFF;",
+            permanent=False,
+        )
+
         folium.CircleMarker(
             location=[lat, lon],
             radius=3,
-            color='red',
+            color='#6CE5E8',
             fill=True,
             fill_color='red',
             fill_opacity=0.7,
-            tooltip=f"Distance: {round(dist / 1000, 2)} Km, Altitude: {round(alt, 1)} Metres, Time: {round(time, 1)} Minutes"
+            tooltip=tooltip,
         ).add_to(m)
+        
+    dark_tile = folium.TileLayer(
+        tiles='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
+        attr='© <a href="https://carto.com/attributions">CartoDB</a> contributors',
+        name='Dark Mode',
+        opacity=0.8,
+    )
+    dark_tile.add_to(m)
         
     map_filename = "temp/map.html"
     m.save(map_filename)
@@ -362,4 +376,4 @@ def altitude_distance_speed_graph(df):
 
     fig.write_html("temp/altitude_distance_speed_graph.html")
 
-    return 'altitude_distance_speed_graph.html'
+    return 'temp/altitude_distance_speed_graph.html'
