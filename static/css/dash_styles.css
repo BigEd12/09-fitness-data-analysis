@@ -67,7 +67,17 @@
 .chart {
     grid-column: span 2;
     grid-row: span 3;
+    position: relative;
 }
+
+.chart .zoom-content {
+    transform-origin: right top;
+}
+
+.chart:hover .zoom-content {
+    transform: scale(1.4);
+}
+
 
 .fun-stats-div {
     display: flex;

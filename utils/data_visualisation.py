@@ -328,15 +328,37 @@ def altitude_time_speed_graph(df):
 
 
 def altitude_distance_speed_graph(df):
-    fig = px.scatter(df, x='Total Distance (KM)', y='Altitude (M)', color='Segment Speed', color_continuous_scale='Viridis',
+    fig = px.scatter(df, x='Total Distance (KM)', y='Altitude (M)', color='Segment Speed', color_continuous_scale='Agsunset',
                      hover_data=[('Total Distance (KM)'), 'Altitude (M)', 'Segment Speed'],
                      labels={'Total Distance (KM)': 'Distance (Km)', 'Altitude (M)': 'Altitude (m)'},
-                     title='2D Scatter Plot with Gradient Line')
+                     title='Distance - Speed - Altitude')
 
     fig.add_trace(px.line(df, x='Total Distance (KM)', y='Altitude (M)', color='Altitude (M)').data[0])
 
     fig.update_traces(line=dict(width=4), hovertemplate='Distance: %{x:.2f} Km<br>Altitude: %{y:.1f} m<br>Segment Speed: %{marker.color:.2f} Km/h<extra></extra>')
-    fig.update_coloraxes(colorbar_title='Speed (m/s)')
+    fig.update_coloraxes(colorbar_title='Speed (Km/h)')
+
+    fig.update_layout(
+        plot_bgcolor='#0B2447',
+        paper_bgcolor='#0B2447',
+        xaxis=dict(showgrid=False, gridcolor='#2D8BBA', title_font=dict(color='white'), tickfont=dict(color='white')),
+        yaxis=dict(showgrid=False, gridcolor='#2D8BBA', title_font=dict(color='white'), tickfont=dict(color='white')),
+    )
+    fig.update_coloraxes(
+        colorbar_title_font=dict(color='white', size=14, family='Arial'),
+        colorbar_tickfont=dict(color='white', size=12, family='Arial')
+    )
+    fig.update_layout(
+        title_font=dict(color='white'),
+    )
+    
+    fig.update_traces(
+        hoverlabel=dict(
+            bgcolor='#123C76',
+            bordercolor='#123C76',
+            font=dict(size=24, color='white'),
+        )
+    )
 
     fig.write_html("temp/altitude_distance_speed_graph.html")
 
