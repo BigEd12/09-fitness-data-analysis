@@ -1,0 +1,83 @@
+.dashboard {
+    background-color: #0B2447;
+    color: #ffffff;
+}
+
+.first-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 5px;
+    padding: 2%;
+}
+
+.second-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 5px;
+    padding: 2%;
+}
+
+.col {
+    border: 1px solid #ffffff;
+    text-align: center;
+}
+
+.single {
+    grid-column: span 1;
+}
+
+.blank {
+    text-align: center;
+}
+
+.key-info-div {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.key-info {
+    grid-column: span 1;
+    text-align: center;
+    border-radius: 20px;
+    background-color: #123C76;
+    overflow: hidden;
+    width: 60%;
+}
+
+.zoom-content {
+    transition: transform 0.7s;
+    margin-bottom: 0;
+}
+
+.key-info:hover .zoom-content {
+    transform: scale(1.7);
+}
+
+.map {
+    grid-column: span 3;
+    grid-row: span 5;
+}
+
+.chart {
+    grid-column: span 2;
+    grid-row: span 3;
+}
+
+.fun-stats-div {
+    display: flex;
+    justify-content: center;
+}
+
+.fun-stats {
+    grid-column: span 1;
+    text-align: center;
+    border-radius: 20px;
+    background-color: #2D8BBA;
+    overflow: hidden;
+    width: 60%;
+}
+
+.fun-stats:hover .zoom-content {
+    transform: scale(1.7);
+}
