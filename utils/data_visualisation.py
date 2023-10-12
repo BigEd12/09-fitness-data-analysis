@@ -4,16 +4,14 @@ import plotly.graph_objects as go
 from PIL import Image
 import folium
 
-def create_time_distance_graph(df):
-    image_path = "images/bg.jpg"
-    img = Image.open(image_path)
-    
+def time_distance_graph(df):    
     fig = go.Figure()
 
     fig.add_trace(
         go.Scatter(x=df['Total Time (M)'], y=df['Total Distance (M)'],
-                   line=dict(width=1, color='red'),
-                   hovertext=['Time={} min, Distance={} Km'.format(round(time, 1), round(distance / 1000, 2))
+                   line=dict(width=1, color='#6CE5E8'),
+                   hoverinfo='text',
+                   text=['Time={} min, Distance={} Km'.format(round(time, 1), round(distance / 1000, 2))
                               for i, (time, distance) in enumerate(zip(df['Total Time (M)'], df['Total Distance (M)']))],
                    mode='lines+markers',
                    )
@@ -22,28 +20,38 @@ def create_time_distance_graph(df):
     x_lims = df.iloc[-1]['Total Time (M)'] * 1.1
     y_lims = df.iloc[-1]['Total Distance (M)'] * 1.1
     
-    fig.add_layout_image(
-            dict(
-                source=img,
-                xref="x",
-                yref="y",
-                x=0,
-                y=y_lims,
-                sizex=x_lims,
-                sizey=y_lims,
-                sizing="stretch",
-                opacity=0.7,
-                layer="below")
-    )
 
     fig.update_layout(xaxis_showgrid=False, yaxis_showgrid=False)
 
     fig.update_xaxes(title_text='Time (minutes)', range=[0, x_lims])
     fig.update_yaxes(title_text='Distance (Km)', range=[0, y_lims])
 
-    fig.update_layout(title_text='Distance Over Time')
+    fig.update_layout(title_text='Time - Distance')
+    
+    fig.update_layout(
+        plot_bgcolor='#0B2447',
+        paper_bgcolor='#0B2447',
+        xaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white'), tickfont=dict(color='white')),
+        yaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white'), tickfont=dict(color='white')),
+    )
+    
+    fig.update_traces(
+        hoverlabel=dict(
+            bgcolor='#123C76',
+            bordercolor='#123C76',
+            font=dict(size=24, color='white'),
+        )
+    )
+    
+    fig.update_layout(
+        title_font=dict(color='white'),
+    )
 
-    return fig.show()
+    save_name = "temp/time_distance_graph.html"
+    
+    fig.write_html(save_name)
+
+    return save_name
 
 def distance_altitude_graph(df):    
     fig = go.Figure()
@@ -51,7 +59,8 @@ def distance_altitude_graph(df):
     fig.add_trace(
         go.Scatter(x=df['Total Distance (M)'], y=df['Altitude (M)'],
                    line=dict(width=1, color='#6CE5E8'),
-                   hovertext=['Distance={} Km, Altitude={} M'.format(round(distance / 1000, 2, ), round(altitude, 2))
+                   hoverinfo='text',
+                   text=['Distance={} Km, Altitude={} M'.format(round(distance / 1000, 2, ), round(altitude, 2))
                               for i, (distance, altitude) in enumerate(zip(df['Total Distance (M)'], df['Altitude (M)']))],
                    mode='lines+markers',
                    )
@@ -66,7 +75,7 @@ def distance_altitude_graph(df):
     fig.update_xaxes(title_text='Distance (Km)', range=[0, x_lims])
     fig.update_yaxes(title_text='Altitude (M)', range=[0, y_lims])
 
-    fig.update_layout(title_text='Altitude over Distance')
+    fig.update_layout(title_text='Distance - Altitude')
     
     fig.update_layout(
         plot_bgcolor='#0B2447',
@@ -94,46 +103,51 @@ def distance_altitude_graph(df):
     return save_name
 
 
-def altitude_time_graph(df):
-    image_path = "images/bg.jpg"
-    img = Image.open(image_path)
-    
+def time_altitude_graph(df):
     fig = go.Figure()
 
     fig.add_trace(
         go.Scatter(x=df['Total Time (M)'], y=df['Altitude (M)'],
-                   line=dict(width=1, color='red'),
-                   hovertext=['Time={} min, Altitude={} M'.format(round(time, 2), round(altitude, 2))
+                   line=dict(width=1, color='#6CE5E8'),
+                   hoverinfo='text',
+                   text=['Time={} min, Altitude={} M'.format(round(time, 2), round(altitude, 2))
                               for time, altitude in zip(df['Total Time (M)'], df['Altitude (M)'])],
                    mode='lines+markers',
                    )
     )
-    
+
     x_lims = df.iloc[-1]['Total Time (M)'] * 1.1
     y_lims = df['Altitude (M)'].max() * 1.1
-    
-    fig.add_layout_image(
-            dict(
-                source=img,
-                xref="x",
-                yref="y",
-                x=0,
-                y=y_lims,
-                sizex=x_lims,
-                sizey=y_lims,
-                sizing="stretch",
-                opacity=0.7,
-                layer="below")
-    )
 
     fig.update_layout(xaxis_showgrid=False, yaxis_showgrid=False)
 
     fig.update_xaxes(title_text='Time (min)', range=[0, x_lims])
     fig.update_yaxes(title_text='Altitude (M)', range=[0, y_lims])
 
-    fig.update_layout(title_text='Altitude over Time')
+    fig.update_layout(
+        plot_bgcolor='#0B2447',
+        paper_bgcolor='#0B2447',
+        xaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white'), tickfont=dict(color='white')),
+        yaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white'), tickfont=dict(color='white')),
+    )
 
-    return fig.show()
+    fig.update_layout(
+        title_text='Time - Altitude', 
+        title_font=dict(color='white')
+    )
+
+    fig.update_traces(
+    hoverlabel=dict(
+        bgcolor='#123C76',
+        bordercolor='#123C76',
+        font=dict(size=24, color='white'),
+    ))
+
+    save_name = "temp/time_altitude_graph.html"
+    
+    fig.write_html(save_name)
+
+    return save_name
 
 
 
@@ -158,13 +172,14 @@ def distance_speed_graph(df):
 
     averaged_data = pd.DataFrame({'Distance': avg_distances, 'Speed': avg_speeds})
 
+    
     fig.add_trace(
         go.Scatter(x=averaged_data['Distance'], y=averaged_data['Speed'],
                    mode='lines+markers',
-                   marker=dict(size=4, color='#E4F1FF'),
+                   marker=dict(size=4, color='#6CE5E8'),
                    name='Speed',
-                   hovertext=['Distance={} Km, Speed={} Km/h'.format(
-                       round(distance / 1000, 2), round(speed, 2)) for distance, speed in zip(avg_distances, avg_speeds)]
+                   hoverinfo='text',
+                   text=['Distance={:.2f} Km, Speed={:.2f} Km/h'.format(round(distance / 1000, 2), round(speed, 2)) for distance, speed in zip(avg_distances, avg_speeds)]
                    )
     )
 
@@ -175,14 +190,12 @@ def distance_speed_graph(df):
         xaxis_showgrid=False, yaxis_showgrid=False,
         xaxis_title='Distance (Km)', yaxis_title='Speed (Km/h)',
         title_text='Speed over Distance',
-        plot_bgcolor='#132043',
-        paper_bgcolor='#E5E5E5'
+        plot_bgcolor='#0B2447',
+        paper_bgcolor='#0B2447'
     )
 
     fig.update_xaxes(range=[0, x_lims])
     fig.update_yaxes(range=[0, y_lims])
-    
-    fig.add_trace(go.Scatter(x=averaged_data['Distance'], y=averaged_data['Speed'], fill='tozeroy', fillcolor='#E4F1FF'))
     
     
     fig.add_shape(
@@ -190,98 +203,135 @@ def distance_speed_graph(df):
             type='line',
             x0=0,
             x1=x_lims,
-            y0=sum(avg_speeds) / len(avg_speeds),  # Average speed
+            y0=sum(avg_speeds) / len(avg_speeds),
             y1=sum(avg_speeds) / len(avg_speeds),
-            line=dict(color='red', width=2, dash='dash'),
+            line=dict(color='#6CE5E8', width=2, dash='dash'),
             name='Average Speed Km/h',
         )
     )
     
     
-    fig.add_trace(go.Scatter(x=[None], y=[None], mode='lines', line=dict(color='red', width=2, dash='dash'), name='Average Speed Km/h', showlegend=True))
+    fig.add_trace(go.Scatter(x=[None], y=[None], mode='lines', line=dict(color='#6CE5E8', width=2, dash='dash'), name='Average Speed Km/h', showlegend=True))
 
+    
     fig.add_trace(
         go.Scatter(x=[df.iloc[df['Segment Speed'].idxmax()]['Total Distance (M)']], y=[df['Segment Speed'].max()],
                    mode='markers',
-                   marker=dict(size=12, color='#E4F1FF'),
-                   hovertext=['Highest Speed Obtained: Distance={} Km, Speed={} Km/h'.format(
+                   marker=dict(size=12, color='#6CE5E8', symbol='diamond'),
+                   hoverinfo='text',
+                   text=['Highest Speed Obtained: Distance={} Km, Speed={} Km/h'.format(
                        round(df.iloc[df['Segment Speed'].idxmax()]['Total Distance (M)'] / 1000, 2), round(df['Segment Speed'].max(), 2)) for distance, speed in zip(avg_distances, avg_speeds)],
                    name='Highest Speed',
                    )
     )
+    
+    fig.update_layout(
+        plot_bgcolor='#0B2447',
+        paper_bgcolor='#0B2447',
+        xaxis=dict(showgrid=False, gridcolor='#2D8BBA', title_font=dict(color='white'), tickfont=dict(color='white')),
+        yaxis=dict(showgrid=False, gridcolor='#2D8BBA', title_font=dict(color='white'), tickfont=dict(color='white')),
+    )
+    
+    fig.update_traces(
+        hoverlabel=dict(
+            bgcolor='#123C76',
+            bordercolor='#123C76',
+            font=dict(size=24, color='white'),
+        )
+    )
+    
+    fig.update_layout(
+        title_font=dict(color='white'),
+        legend=dict(
+        font=dict(
+            color='white'
+        )
+    )
+    )
 
-    return fig.show()
+    save_name = "temp/distance_speed_chart.html"
+    
+    fig.write_html(save_name)
+
+    return save_name
 
 
 def time_speed_graph(df):
     fig = go.Figure()
 
-    window_size = 6
-    num_windows = len(df) // window_size
-
     avg_times = []
     avg_speeds = []
 
-    for i in range(num_windows):
-        start_idx = i * window_size
-        end_idx = (i + 1) * window_size
-
-        avg_time = df['Total Time (M)'].iloc[start_idx:end_idx].mean()
-        avg_speed = df['Segment Speed'].iloc[start_idx:end_idx].sum() / window_size
-
+    for i in range(0, len(df), 6):
+        avg_time = df['Total Time (M)'].iloc[i:i+6].mean()
+        avg_speed = df['Segment Speed'].iloc[i:i+6].sum() / 6
         avg_times.append(avg_time)
         avg_speeds.append(avg_speed)
 
     averaged_data = pd.DataFrame({'Time': avg_times, 'Speed': avg_speeds})
 
     fig.add_trace(
-        go.Scatter(x=averaged_data['Time'], y=averaged_data['Speed'],  # Use 'Time' instead of 'Distance'
+        go.Scatter(x=averaged_data['Time'], y=averaged_data['Speed'],
                    mode='lines+markers',
-                   marker=dict(size=4, color='#E4F1FF'),
+                   marker=dict(size=4, color='#6CE5E8'),
                    name='Speed',
-                   hovertext=['Time={} min, Speed={} Km/h'.format(
+                   hoverinfo='text',
+                   text=['Time={} min, Speed={} Km/h'.format(
                        round(time, 2), round(speed, 2)) for time, speed in zip(avg_times, avg_speeds)]
                    )
     )
 
-    x_lims = max(avg_times) * 1.01  # Adjust x-axis limit for time
+    x_lims = max(avg_times) * 1.01
     y_lims = df['Segment Speed'].max() * 1.1
-
-    fig.update_layout(
-        xaxis_showgrid=False, yaxis_showgrid=False,
-        xaxis_title='Time (min)', yaxis_title='Speed (Km/h)',
-        title_text='Speed over Time',  # Update the title
-        plot_bgcolor='#132043',
-        paper_bgcolor='#E5E5E5'
-    )
 
     fig.update_xaxes(range=[0, x_lims])
     fig.update_yaxes(range=[0, y_lims])
-    
-    fig.add_trace(go.Scatter(x=averaged_data['Time'], y=averaged_data['Speed'], fill='tozeroy', fillcolor='#E4F1FF'))
-    
+
     fig.add_shape(
         dict(
             type='line',
             x0=0,
             x1=x_lims,
-            y0=sum(avg_speeds) / len(avg_speeds),  # Average speed
+            y0=sum(avg_speeds) / len(avg_speeds),
             y1=sum(avg_speeds) / len(avg_speeds),
-            line=dict(color='red', width=2, dash='dash'),
+            line=dict(color='#6CE5E8', width=2, dash='dash'),
             name='Average Speed Km/h',
         )
     )
-    
-    fig.add_trace(go.Scatter(x=[None], y=[None], mode='lines', line=dict(color='red', width=2, dash='dash'), name='Average Speed Km/h', showlegend=True))
+
+    max_speed_time = df.iloc[df['Segment Speed'].idxmax()]['Total Time (M)']
+    max_speed_value = df['Segment Speed'].max()
+    max_speed_text = 'Highest Speed Obtained: Time={} min, Speed={} Km/h'.format(
+        round(max_speed_time, 2), round(max_speed_value, 2))
 
     fig.add_trace(
-        go.Scatter(x=[df.iloc[df['Segment Speed'].idxmax()]['Total Time (M)']], y=[df['Segment Speed'].max()],
+        go.Scatter(x=[max_speed_time], y=[max_speed_value],
                    mode='markers',
-                   marker=dict(size=12, color='#E4F1FF'),
-                   hovertext=['Highest Speed Obtained: Time={} min, Speed={} Km/h'.format(
-                       round(df.iloc[df['Segment Speed'].idxmax()]['Total Time (M)'], 2), round(df['Segment Speed'].max(), 2)) for time, speed in zip(avg_times, avg_speeds)],
+                   marker=dict(size=12, color='#6CE5E8', symbol='diamond'),
+                   hoverinfo='text',
+                   text=[max_speed_text] * len(avg_times),
                    name='Highest Speed',
                    )
+    )
+
+    fig.update_layout(
+        plot_bgcolor='#0B2447',
+        paper_bgcolor='#0B2447',
+        xaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white'), tickfont=dict(color='white')),
+        yaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white'), tickfont=dict(color='white')),
+        title_text='Time - Speed',
+        title_font=dict(color='white'),
+        legend=dict(
+            font=dict(color='white')
+        )
+    )
+
+    fig.update_traces(
+        hoverlabel=dict(
+            bgcolor='#123C76',
+            bordercolor='#123C76',
+            font=dict(size=24, color='white'),
+        )
     )
 
     save_name = "temp/time_speed_graph.html"
@@ -391,13 +441,21 @@ def altitude_distance_speed_graph(df):
 def create_custom_graph(df, x_axis, y_axis):
     if x_axis == 'distance' and y_axis == 'altitude':
         return distance_altitude_graph(df)
-    elif x_axis == 'altitude' and y_axis == 'time':
-        return altitude_time_graph(df)
-    elif x_axis == 'distance' and y_axis == 'time':
-        return create_time_distance_graph(df)
-    elif x_axis == 'speed' and y_axis == 'distance':
+    
+    elif x_axis == 'distance' and y_axis == 'speed':
         return distance_speed_graph(df)
-    elif x_axis == 'speed' and y_axis == 'time':
+    
+    elif x_axis == 'time' and y_axis == 'altitude':
+        return time_altitude_graph(df)
+    
+    elif x_axis == 'time' and y_axis == 'distance':
+        return time_distance_graph(df)
+    
+    elif x_axis == 'time' and y_axis == 'speed':
         return time_speed_graph(df)
+    
+    elif x_axis == 'distance' and y_axis == 'distance':
+        return None
+    
     else:
         return None
