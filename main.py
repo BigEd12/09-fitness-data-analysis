@@ -18,7 +18,7 @@ def index():
 
 uploaded_file_data = None
 
-@app.route('/dash')
+@app.route('/dash', methods=['GET', 'POST'])
 def dash():
     global uploaded_file_data
     if not uploaded_file_data.empty:
@@ -37,7 +37,14 @@ def dash():
         ascent = round((basic_info[2] / 8849) * 100, 2)
         
         animal_speed = data_preparation.find_faster_slower_animals(basic_info[8])
-        print(basic_info[8])
+
+        
+        
+        if request.method == 'POST':
+            parameter1 = request.form.get('parameter1')
+            parameter2 = request.form.get('parameter2')
+            
+            print(parameter1, parameter2)
 
     return render_template('dash.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, ascent=ascent, animal_speed=animal_speed)
 

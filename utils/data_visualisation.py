@@ -377,3 +377,18 @@ def altitude_distance_speed_graph(df):
     fig.write_html("temp/altitude_distance_speed_graph.html")
 
     return 'temp/altitude_distance_speed_graph.html'
+
+
+def create_custom_graph(df, x_axis, y_axis):
+    if x_axis == 'altitude' and y_axis == 'distance':
+        return altitude_distance_graph(df)
+    elif x_axis == 'altitude' and y_axis == 'time':
+        return altitude_time_graph(df)
+    elif x_axis == 'distance' and y_axis == 'time':
+        return create_time_distance_graph(df)
+    elif x_axis == 'speed' and y_axis == 'distance':
+        return distance_speed_graph(df)
+    elif x_axis == 'speed' and y_axis == 'time':
+        return time_speed_graph(df)
+    else:
+        return None
