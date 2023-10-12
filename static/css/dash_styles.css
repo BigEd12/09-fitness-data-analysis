@@ -70,6 +70,10 @@
     position: relative;
 }
 
+.chart1 {
+    z-index: 2;
+}
+
 .chart .zoom-content {
     transform-origin: right top;
 }
