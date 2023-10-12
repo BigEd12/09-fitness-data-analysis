@@ -30,7 +30,7 @@ def dash():
         
         map = data_visualisation.plot_line_map(df)
         
-        chart_1 = data_visualisation.altitude_distance_graph(df)
+        chart_1 = data_visualisation.time_speed_graph(df)
         chart_2 = data_visualisation.altitude_distance_speed_graph(df)
 
         equator = round((basic_info[0] / 40075) * 100, 2)
@@ -44,7 +44,9 @@ def dash():
             parameter1 = request.form.get('parameter1')
             parameter2 = request.form.get('parameter2')
             
-            print(parameter1, parameter2)
+            chart_1 = data_visualisation.create_custom_graph(df, parameter1, parameter2)
+            
+            
 
     return render_template('dash.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, ascent=ascent, animal_speed=animal_speed)
 

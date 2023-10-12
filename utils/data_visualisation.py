@@ -45,15 +45,12 @@ def create_time_distance_graph(df):
 
     return fig.show()
 
-def altitude_distance_graph(df, option1=1, option2=2):
-    image_path = "images/bg.jpg"
-    img = Image.open(image_path)
-    
+def distance_altitude_graph(df):    
     fig = go.Figure()
 
     fig.add_trace(
         go.Scatter(x=df['Total Distance (M)'], y=df['Altitude (M)'],
-                   line=dict(width=1, color='red'),
+                   line=dict(width=1, color='#6CE5E8'),
                    hovertext=['Distance={} Km, Altitude={} M'.format(round(distance / 1000, 2, ), round(altitude, 2))
                               for i, (distance, altitude) in enumerate(zip(df['Total Distance (M)'], df['Altitude (M)']))],
                    mode='lines+markers',
@@ -63,19 +60,6 @@ def altitude_distance_graph(df, option1=1, option2=2):
     x_lims = df.iloc[-1]['Total Distance (M)'] * 1.1
     y_lims = df['Altitude (M)'].max() * 1.1
     
-    fig.add_layout_image(
-            dict(
-                source=img,
-                xref="x",
-                yref="y",
-                x=0,
-                y=y_lims,
-                sizex=x_lims,
-                sizey=y_lims,
-                sizing="stretch",
-                opacity=0.7,
-                layer="below")
-    )
 
     fig.update_layout(xaxis_showgrid=False, yaxis_showgrid=False)
 
@@ -84,9 +68,30 @@ def altitude_distance_graph(df, option1=1, option2=2):
 
     fig.update_layout(title_text='Altitude over Distance')
     
-    fig.write_html("temp/altitude_distance_chart.html")
+    fig.update_layout(
+        plot_bgcolor='#0B2447',
+        paper_bgcolor='#0B2447',
+        xaxis=dict(showgrid=False, gridcolor='#2D8BBA', title_font=dict(color='white'), tickfont=dict(color='white')),
+        yaxis=dict(showgrid=False, gridcolor='#2D8BBA', title_font=dict(color='white'), tickfont=dict(color='white')),
+    )
+    
+    fig.update_layout(
+        title_font=dict(color='white'),
+    )
+    
+    fig.update_traces(
+        hoverlabel=dict(
+            bgcolor='#123C76',
+            bordercolor='#123C76',
+            font=dict(size=24, color='white'),
+        )
+    )
+    
+    save_name = "temp/altitude_distance_chart.html"
+    
+    fig.write_html(save_name)
 
-    return 'temp/altitude_distance_chart.html'
+    return save_name
 
 
 def altitude_time_graph(df):
@@ -279,7 +284,11 @@ def time_speed_graph(df):
                    )
     )
 
-    return fig.show()
+    save_name = "temp/time_speed_graph.html"
+    
+    fig.write_html(save_name)
+
+    return save_name
 
 
 def plot_line_map(df):
@@ -380,8 +389,8 @@ def altitude_distance_speed_graph(df):
 
 
 def create_custom_graph(df, x_axis, y_axis):
-    if x_axis == 'altitude' and y_axis == 'distance':
-        return altitude_distance_graph(df)
+    if x_axis == 'distance' and y_axis == 'altitude':
+        return distance_altitude_graph(df)
     elif x_axis == 'altitude' and y_axis == 'time':
         return altitude_time_graph(df)
     elif x_axis == 'distance' and y_axis == 'time':
