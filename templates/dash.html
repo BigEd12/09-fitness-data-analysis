@@ -17,7 +17,11 @@
     <div class="dashboard">
         <div class="first-grid">
             <!-- KEY-INFO: TIME AND DATE -->
-            <div class="key-info-div"><div class="key-info"><p class="zoom-content">{{ basic_info[10][0] }} - {{ basic_info[10][1] }}</p></div></div>
+            <div class="key-info-div">
+                <div class="key-info zoom-content">
+                    <p>{{ basic_info[10][0] }} - {{ basic_info[10][1] }}</p>
+                </div>
+            </div>
 
             <!-- BLANKS -->
             <div class="blank"></div>
@@ -45,7 +49,11 @@
             </div>
 
             <!-- KEY-INFO: DISTANCE -->
-            <div class="key-info-div"><div class="key-info"><p class="zoom-content">{{ basic_info[0] }} Km</p></div></div>
+            <div class="key-info-div">
+                <div class="key-info" zoom-content>
+                    <p class="zoom-content">{{ basic_info[0] }} Km</p>
+                </div>
+            </div>
 
             <!-- MAP -->
             <div class="map">
@@ -58,9 +66,21 @@
             </div>
 
             <!-- KEY-INFO: TIME, ASCENT, AVERAGE SPEED -->
-            <div class="key-info-div"><div class="key-info"><p class="zoom-content">{{ basic_info[1][0] }} Hrs {{ basic_info[1][1] }} Mins</p></div></div>
-            <div class="key-info-div"><div class="key-info"><p class="zoom-content">{{ basic_info[2] }} Metres</p></div></div>
-            <div class="key-info-div"><div class="key-info"><p class="zoom-content">{{ basic_info[7] }} Km/ h Avg.</p></div></div>
+            <div class="key-info-div">
+                <div class="key-info zoom-content">
+                <p>{{ basic_info[1][0] }} Hrs {{ basic_info[1][1] }} Mins</p>
+                </div>
+            </div>
+            <div class="key-info-div">
+                <div class="key-info zoom-content">
+                    <p>{{ basic_info[2] }} Metres</p>
+                </div>
+            </div>
+            <div class="key-info-div">
+                <div class="key-info zoom-content">
+                    <p>{{ basic_info[7] }} Km/ h Avg.</p>
+                </div>
+            </div>
 
             <!-- CHART-2 -->
             <div class="chart">
@@ -68,40 +88,48 @@
             </div>
 
             <!-- KEY-INFO: CALORIES AND WEATHER -->
-            <div class="key-info-div"><div class="key-info"><p class="zoom-content">6.1</p></div></div>
-            <div class="key-info-div"><div class="key-info"><p class="zoom-content">7.1</p></div></div>
+            <div class="key-info-div">
+                <div class="key-info zoom-content">
+                    <p>6.1</p>
+                </div>
+            </div>
+            <div class="key-info-div">
+                <div class="key-info zoom-content">
+                    <p>7.1</p>
+                </div>
+            </div>
 
         </div>
         <div class="second-grid">
             <div class="fun-stats-div">
-                <div class="fun-stats">
-                    <p class="zoom-content">{{ equator }}% of the Equator</p>
+                <div class="fun-stats zoom-content">
+                    <p>{{ equator }}% of the Equator</p>
                     <img src="/static/images/planet - w.png" class="fun-stats-images">
                 </div>
             </div>
             <div class="fun-stats-div">
-                <div class="fun-stats">
-                    <p class="zoom-content">{{ ascent }}% of Everest</p>
+                <div class="fun-stats zoom-content">
+                    <p>{{ ascent }}% of Everest</p>
                     <img src="/static/images/mountain - w.png" class="fun-stats-images">
                 </div>
             </div>
             <div class="fun-stats-div">
-                <div class="fun-stats">
-                    <p class="zoom-content">You outrun a {{ animal_speed[1][0] }}</p>
+                <div class="fun-stats zoom-content">
+                    <p >You outrun a {{ animal_speed[1][0] }}</p>
                     <img src="{{ animal_speed[1][2] }}" class="fun-stats-images">
-                    <p class="zoom-content">{{ animal_speed[1][1] }} Km/h</p>
+                    <p>{{ animal_speed[1][1] }} Km/h</p>
                 </div>
             </div>
             <div class="fun-stats-div">
-                <div class="fun-stats">
-                    <p class="zoom-content">You didn't outrun a {{ animal_speed[0][0] }}</p>
+                <div class="fun-stats zoom-content">
+                    <p>You didn't outrun a {{ animal_speed[0][0] }}</p>
                     <img src="{{ animal_speed[0][2] }}" class="fun-stats-images">
-                    <p class="zoom-content">{{ animal_speed[0][1] }} Km/h</p>
+                    <p>{{ animal_speed[0][1] }} Km/h</p>
                 </div>
             </div>
             <div class="fun-stats-div">
-                <div class="fun-stats">
-                    <p class="zoom-content">5.3 Big Macs ¿</p>
+                <div class="fun-stats zoom-content">
+                    <p>5.3 Big Macs ¿</p>
                     <img src="/static/images/burger - w.png" class="fun-stats-images">
                 </div>
             </div>

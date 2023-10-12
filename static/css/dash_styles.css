@@ -55,7 +55,7 @@
     margin-bottom: 0;
 }
 
-.key-info:hover .zoom-content {
+.key-info-div:hover .zoom-content {
     transform: scale(1.7);
 }
 
@@ -98,8 +98,9 @@
     font-size: 24px;
 }
 
-.fun-stats:hover .zoom-content {
+.fun-stats-div:hover .zoom-content {
     transform: scale(1.7);
+    transform-origin: center bottom;
 }
 
 .fun-stats-images {
