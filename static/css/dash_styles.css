@@ -111,3 +111,76 @@ img {
     padding-top: 5%;
     padding-bottom: 3%;
 }
+
+
+.dropdown-div form {
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+}
+
+.dropdown-div {
+    grid-column: span 2;
+    display: flex;
+    background-color: #0B2447;
+    justify-content: center;
+    text-align: center;
+  }
+
+.dropdown {
+    background-color: #123C76;
+    text-align: center;
+    border-radius: 20px;
+    /* width: 33%; */
+    padding: 10px;
+    font-size: 22px;
+    color: #ffffff;
+    border-color: #123C76;
+    box-shadow: 0 0 0 #2D8BBA; /* Initial glow effect */
+    transition: box-shadow 1s; /* Add a transition for smooth effect */
+}
+
+#dropdown2 {
+    margin: 0 2%;
+}
+
+/* Apply the pulsating glow effect on hover */
+.dropdown:hover {
+    animation: pulse 2s infinite; /* Add the pulsating animation */
+}
+
+.dropdown-button {
+    background-color: #123C76;
+    text-align: center;
+    border-radius: 20px;
+    overflow: visible;
+    padding: 10px;
+    font-size: 22px;
+    color: #ffffff;
+    border-color: #123C76;
+    box-shadow: 0 0 0 #2D8BBA; /* Initial glow effect */
+    transition: box-shadow 1s; /* Add a transition for smooth effect */
+}
+
+/* Apply the pulsating glow effect on hover */
+.dropdown-button:hover {
+    animation: pulse 2s infinite; /* Add the pulsating animation */
+}
+
+/* Define the pulsating animation */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px #2D8BBA;
+    }
+    50% {
+        box-shadow: 0 0 15px #2D8BBA;
+    }
+    100% {
+        box-shadow: 0 0 5px #2D8BBA;
+    }
+}
+
+
+
+
+
