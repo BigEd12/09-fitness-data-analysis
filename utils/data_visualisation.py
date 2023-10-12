@@ -1,8 +1,9 @@
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from PIL import Image
 import folium
+
+from utils import data_preparation
 
 def time_distance_graph(df):    
     fig = go.Figure()
@@ -213,14 +214,16 @@ def distance_speed_graph(df):
     
     fig.add_trace(go.Scatter(x=[None], y=[None], mode='lines', line=dict(color='#6CE5E8', width=2, dash='dash'), name='Average Speed Km/h', showlegend=True))
 
-    
+    max_speed_value, ms_id = data_preparation.highest_average_speed(df)
+    max_speed_distance = df.iloc[ms_id]['Total Distance (KM)']
+    max_speed_text = ['Highest Speed Obtained: Distance={} Km, Speed={} Km/h'.format(
+                       round(df.iloc[df['Segment Speed'].idxmax()]['Total Distance (M)'] / 1000, 2), round(df['Segment Speed'].max(), 2)) for distance, speed in zip(avg_distances, avg_speeds)]
     fig.add_trace(
-        go.Scatter(x=[df.iloc[df['Segment Speed'].idxmax()]['Total Distance (M)']], y=[df['Segment Speed'].max()],
+        go.Scatter(x=[max_speed_distance], y=[max_speed_value],
                    mode='markers',
                    marker=dict(size=12, color='#6CE5E8', symbol='diamond'),
                    hoverinfo='text',
-                   text=['Highest Speed Obtained: Distance={} Km, Speed={} Km/h'.format(
-                       round(df.iloc[df['Segment Speed'].idxmax()]['Total Distance (M)'] / 1000, 2), round(df['Segment Speed'].max(), 2)) for distance, speed in zip(avg_distances, avg_speeds)],
+                   text=max_speed_text,
                    name='Highest Speed',
                    )
     )
@@ -299,8 +302,9 @@ def time_speed_graph(df):
         )
     )
 
-    max_speed_time = df.iloc[df['Segment Speed'].idxmax()]['Total Time (M)']
-    max_speed_value = df['Segment Speed'].max()
+    max_speed_value, ms_id = data_preparation.highest_average_speed(df)
+    max_speed_time = df.iloc[ms_id]['Total Time (M)']
+
     max_speed_text = 'Highest Speed Obtained: Time={} min, Speed={} Km/h'.format(
         round(max_speed_time, 2), round(max_speed_value, 2))
 

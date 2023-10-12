@@ -103,12 +103,26 @@ def elevation_info(df):
     
     return total_ascent, total_descent, total_change, lowest, highest
 
+def highest_average_speed(df, window_size=6):
+    max_avg = -1
+    max_avg_index = -1
+
+    for i in range(len(df) - window_size + 1):
+        window = df.iloc[i:i + window_size]
+        avg = window['Segment Speed'].mean()
+        
+        if avg > max_avg:
+            max_avg = avg
+            max_avg_index = i + window_size // 2
+
+    return [max_avg, max_avg_index]
+
 def speed_info(df):
     """
     Calculates different information about Speed.
     """
     average = calc_total_distance(df) / (calc_moving_time(df).total_seconds() / 3600)
-    fastest = df['Segment Speed'].max()
+    fastest = highest_average_speed(df)[0]
     slowest = df['Segment Speed'].min()
     
     return average, fastest, slowest
@@ -150,7 +164,7 @@ def find_faster_slower_animals(speed):
         'cow': 40,
         'greyhound': 70,
         'cat': 48,
-        'japanes_macaque': 16,
+        'japanese_macaque': 16,
         'hippo': 30,
         'pig': 17,
         'alligator': 56,
@@ -163,6 +177,7 @@ def find_faster_slower_animals(speed):
         'brown_bear': 35,
         'house_mouse': 13,
         'polar_bear': 30,
+        'cheetah': 120,
     }
     
     animal_images = {
@@ -170,7 +185,7 @@ def find_faster_slower_animals(speed):
         'cow': '3',
         'greyhound': '4',
         'cat': '5',
-        'japanes_macaque': '6',
+        'japanese_macaque': '6',
         'hippo': '7',
         'pig': '10',
         'alligator': '8',
@@ -183,6 +198,7 @@ def find_faster_slower_animals(speed):
         'brown_bear': '13',
         'house_mouse': '15',
         'polar_bear': '14',
+        'cheetah': 0,
     }
 
     above_speed = 1000
