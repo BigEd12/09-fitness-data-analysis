@@ -34,7 +34,10 @@ def dash():
         chart_2 = data_visualisation.altitude_distance_speed_graph(df)
 
         equator = round((basic_info[0] / 40075) * 100, 2)
-        ascent = round((basic_info[2] / 8849) * 100, 2)
+        
+        closest_peak = data_preparation.closest_peak(basic_info[2])
+        ascent_percent = round((basic_info[2] / closest_peak[2]) * 100, 2)
+        closest_peak.append(ascent_percent)
         
         animal_speed = data_preparation.find_faster_slower_animals(basic_info[8])
 
@@ -48,7 +51,7 @@ def dash():
             
             
 
-    return render_template('dash.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, ascent=ascent, animal_speed=animal_speed)
+    return render_template('dash.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, peak_info=closest_peak, animal_speed=animal_speed)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

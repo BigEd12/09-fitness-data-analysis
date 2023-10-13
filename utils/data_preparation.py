@@ -225,4 +225,77 @@ def find_faster_slower_animals(speed):
             slower_animal = [below_animal, below_speed, below_path]
 
     return [faster_animal, slower_animal]
+
+peaks = {
+    "Albania": ["Maja e Jezercës", 2694],
+    "Andorra": ["Coma Pedrosa", 2942],
+    "Austria": ["Grossglockner", 3798],
+    "Belarus": ["Dzerzhinskaya Mountain", 345],
+    "Belgium": ["Signal de Botrange", 694],
+    "Bosnia and Herzegovina": ["Maglić", 2386],
+    "Bulgaria": ["Musala", 2925],
+    "Croatia": ["Dinara", 1831],
+    "Cyprus": ["Mount Olympus", 1952],
+    "Czech Republic": ["Snezka", 1603],
+    "Denmark": ["Møllehøj", 170.86],
+    "Estonia": ["Suur Munamägi", 318],
+    "Finland": ["Halti", 1328],
+    "France": ["Mont Blanc", 4810],
+    "Germany": ["Zugspitze", 2962],
+    "Greece": ["Mount Olympus", 2917],
+    "Hungary": ["Kékes", 1014],
+    "Iceland": ["Hvannadalshnjúkur", 2110],
+    "Ireland": ["Carrauntoohil", 1039],
+    "Italy": ["Monte Bianco (Mont Blanc)", 4810],
+    "Latvia": ["Gaiziņkalns", 312],
+    "Liechtenstein": ["Grauspitz", 2599],
+    "Lithuania": ["Aukštojas", 294],
+    "Luxembourg": ["Burgplatz", 559],
+    "Malta": ["Ta' Dmejrek", 253],
+    "Moldova": ["Bălăneşti Hill", 429],
+    "Monaco": ["Chemins des Révoires", 162],
+    "Montenegro": ["Bobotov Kuk", 2523],
+    "Netherlands": ["Vaalserberg", 322.7],
+    "North Macedonia": ["Mount Korab", 2764],
+    "Norway": ["Galdhøpiggen", 2469],
+    "Poland": ["Rysy", 2503],
+    "Portugal": ["Serra da Estrela", 1993],
+    "Romania": ["Moldoveanu Peak", 2544],
+    "San Marino": ["Monte Titano", 739],
+    "Serbia": ["Midžor", 2169],
+    "Slovakia": ["Gerlachovský štít", 2655],
+    "Slovenia": ["Triglav", 2864],
+    "Spain": ["Mulhacén", 3479],
+    "Sweden": ["Kebnekaise", 2097],
+    "Switzerland": ["Dufourspitze", 4634],
+    "Ukraine": ["Hoverla", 2061],
+    "United Kingdom": ["Ben Nevis", 1345],
+    "Vatican City": ["Vatican Hill", 75],
+    "Morocco": ["Toubkal", 4167],
+    "Kenya": ["Mount Kenya", 5199],
+    "Nepal": ["Mount Everest", 8848],
+    "Pakistan": ["K2", 8611],
+    "United States": ["Denali (Mount McKinley)", 6190],
+    "Canada": ["Mount Logan", 5959],
+    "Australia": ["Mount Kosciuszko", 2228],
+    "Indonesia": ["Puncak Jaya (Carstensz Pyramid)", 4884],
+    "Argentina": ["Aconcagua", 6962],
+    "Chile": ["Ojos del Salado", 6887]
+}
+
+
+
+def closest_peak(altitude, peaks=peaks):
+    closest_peak = None
+    closest_difference = float('inf')
+
+    for country, data in peaks.items():
+        peak_name, peak_altitude = data
+        if peak_altitude > altitude:
+            difference = peak_altitude - altitude
+            if difference < closest_difference:
+                closest_difference = difference
+                closest_peak = [country, peak_name, peak_altitude]
+
+    return closest_peak
     
