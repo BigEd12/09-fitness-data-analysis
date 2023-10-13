@@ -13,15 +13,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload</title>
 </head>
+
 <body>
     <form method="POST" action="/upload" enctype="multipart/form-data">
         <div class="mb-3 upload-div">
             <div class="upload">
-                <label for="formFile" class="form-label">Upload your file</label>
+                <label for="formFile" class="form-label">Upload tcx</label>
                 <input class="form-control visually-hidden" type="file" id="formFile" name="file">
             </div>
+            <div class="submit-div">
+                <input type="submit" value="Upload" class="submit-btn">
+            </div>
         </div>
-        <input type="submit" value="Upload">
     </form>
 </body>
 </html>

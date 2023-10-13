@@ -5,24 +5,68 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #0B2447;
+    color: #fff;
+    font-size: 18px;
 }
 
+
 .upload-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-bottom: 0 !important;
-    width: 10%;
+    width: 125%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .upload {
     border-radius: 20px;
-    background-color: #2D8BBA;
+    border-color: #123C76;
+    background-color: #123C76;
     text-align: center;
-    width: 120%;
+    width: 125%;
+    margin-bottom: 10%;
+    box-shadow: 0 0 0 #2D8BBA;
+    transition: box-shadow 1s;
+}
+
+.upload:hover {
+    animation: pulse 2s infinite;
 }
 
 .form-label {
     width: fit-content;
+    padding: 3%;
 }
 
+.submit-div {
+    margin-bottom: 0 !important;
+    width: 110%;
+}
+
+
+.submit-btn {
+    border-radius: 20px;
+    border-color: #123C76;
+    background-color: #123C76;
+    padding: 3%;
+    width: 100%;
+    color: #fff;
+    box-shadow: 0 0 0 #2D8BBA;
+    transition: box-shadow 1s;
+}
+
+.submit-btn:hover {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px #2D8BBA;
+    }
+    50% {
+        box-shadow: 0 0 15px #2D8BBA;
+    }
+    100% {
+        box-shadow: 0 0 5px #2D8BBA;
+    }
+}
