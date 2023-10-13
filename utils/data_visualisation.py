@@ -354,7 +354,7 @@ def plot_line_map(df):
 
     center_lat = sum(latitudes) / len(latitudes)
     center_lon = sum(longitudes) / len(longitudes)
-    m = folium.Map(location=[center_lat, center_lon], zoom_start=10)
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=11)
 
     route_coordinates = list(zip(latitudes, longitudes))
 
