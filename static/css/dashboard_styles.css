@@ -12,7 +12,7 @@ body {
     background-color: #123C76;
     margin: 1%;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 14px;
     box-shadow: 0 0 0 #2D8BBA;
     transition: box-shadow 1s;
 }
@@ -31,6 +31,7 @@ body {
 
 .graphical {
     margin: 1%;
+    transition: 1s ease-in-out;
 }
 
 
@@ -77,6 +78,16 @@ body {
 .fun-stats:hover {
     animation: pulse 1.5s infinite;
     transform: scale(1.7);
+}
+
+.chart_1:hover {
+    transform: scale(1.5);
+    transform-origin: left center;
+}
+
+.chart_2:hover {
+    transform: scale(1.5);
+    transform-origin: right center;
 }
 
 @keyframes pulse {

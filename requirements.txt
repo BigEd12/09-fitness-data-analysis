@@ -1,0 +1,5 @@
+Flask==3.0.0
+Flask-Bootstrap==3.3.7.1
+folium==0.14.0
+numpy==1.26.0
+pandas==2.1.1
