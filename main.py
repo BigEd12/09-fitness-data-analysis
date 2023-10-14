@@ -57,7 +57,7 @@ def dash():
             
             
 
-    return render_template('test.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, peak_info=closest_peak, animal_speed=animal_speed)
+    return render_template('dashboard.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, peak_info=closest_peak, animal_speed=animal_speed)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

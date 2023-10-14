@@ -13,6 +13,8 @@ body {
     margin: 1%;
     border-radius: 20px;
     font-size: 12px;
+    box-shadow: 0 0 0 #2D8BBA;
+    transition: box-shadow 1s;
 }
 
 .key-info p {
@@ -62,4 +64,29 @@ body {
     margin: 1%;
     border-radius: 20px;
     font-size: 12px;
+    box-shadow: 0 0 0 #2D8BBA;
+    transition: box-shadow 1s;
+}
+
+/* HOVER EFFECTS */
+.key-info:hover {
+    animation: pulse 1.5s infinite;
+    transform: scale(1.7);
+}
+
+.fun-stats:hover {
+    animation: pulse 1.5s infinite;
+    transform: scale(1.7);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px #2D8BBA;
+    }
+    50% {
+        box-shadow: 0 0 15px #2D8BBA;
+    }
+    100% {
+        box-shadow: 0 0 5px #2D8BBA;
+    }
 }
