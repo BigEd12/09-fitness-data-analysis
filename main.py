@@ -31,7 +31,7 @@ def dash():
         map = data_visualisation.plot_line_map(df)
         
         chart_1 = data_visualisation.time_speed_graph(df)
-        chart_2 = data_visualisation.altitude_distance_speed_graph(df)
+        chart_2 = data_visualisation.altitude_time_distance_speed_graph(df, 'distance')
 
         equator = round((basic_info[0] / 40075) * 100, 2)
         
@@ -43,12 +43,17 @@ def dash():
         basic_info
 
         
-        
         if request.method == 'POST':
-            parameter1 = request.form.get('parameter1')
-            parameter2 = request.form.get('parameter2')
+            if request.form['form_name'] == 'form1':
+                parameter1 = request.form.get('parameter1')
+                parameter2 = request.form.get('parameter2')
+                chart_1 = data_visualisation.create_custom_graph(df, parameter1, parameter2)
+                
+            elif request.form['form_name'] == 'form2':
+                print(f'name: {request.form["form_name"]}')
+                parameter = request.form.get('parameter')
+                chart_2 = data_visualisation.altitude_time_distance_speed_graph(df, parameter)
             
-            chart_1 = data_visualisation.create_custom_graph(df, parameter1, parameter2)
             
             
 

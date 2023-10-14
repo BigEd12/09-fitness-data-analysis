@@ -394,29 +394,24 @@ def plot_line_map(df):
     return map_filename
 
 
-def altitude_time_speed_graph(df):
-    fig = px.scatter(df, x='Total Time (M)', y='Altitude (M)', color='Segment Speed', color_continuous_scale='Viridis',
-                     hover_data=['Total Time (M)', 'Altitude (M)', 'Segment Speed'],
-                     labels={'Total Time (M)': 'Time (mins)', 'Altitude (M)': 'Altitude (m)'},
-                     title='Time by Altitude and Speed')
+def altitude_time_distance_speed_graph(df, x_choice):
+    if x_choice == 'distance':
+        x_axis = 'Total Distance (KM)'
+        x_title = 'Distance'
+        x_units = 'Km'
+        x_decimals = '.2f'
+    else:
+        x_axis = 'Total Time (M)'
+        x_title = 'Time'
+        x_units = 'Mins'
+        x_decimals = '.0f'
+    
+    fig = px.scatter(df, x=x_axis, y='Altitude (M)', color='Segment Speed', color_continuous_scale='Agsunset',
+                     hover_data=[x_axis, 'Altitude (M)', 'Segment Speed'],
+                     labels={x_axis: f'{x_title} ({x_units})', 'Altitude (M)': 'Altitude (m)'},
+                     title=f'{x_title} - Speed - Altitude')
 
-    fig.add_trace(px.line(df, x='Total Time (M)', y='Altitude (M)', color='Altitude (M)').data[0])
-
-    fig.update_traces(line=dict(width=4), hovertemplate='Time: %{x:.1f} mins<br>Altitude: %{y:.1f} m<br>Segment Speed: %{marker.color:.2f} Km/h<extra></extra>')
-    fig.update_coloraxes(colorbar_title='Speed (m/s)')
-
-    return fig.show()
-
-
-def altitude_distance_speed_graph(df):
-    fig = px.scatter(df, x='Total Distance (KM)', y='Altitude (M)', color='Segment Speed', color_continuous_scale='Agsunset',
-                     hover_data=[('Total Distance (KM)'), 'Altitude (M)', 'Segment Speed'],
-                     labels={'Total Distance (KM)': 'Distance (Km)', 'Altitude (M)': 'Altitude (m)'},
-                     title='Distance - Speed - Altitude')
-
-    fig.add_trace(px.line(df, x='Total Distance (KM)', y='Altitude (M)', color='Altitude (M)').data[0])
-
-    fig.update_traces(line=dict(width=4), hovertemplate='Distance: %{x:.2f} Km<br>Altitude: %{y:.1f} m<br>Segment Speed: %{marker.color:.2f} Km/h<extra></extra>')
+    fig.update_traces(line=dict(width=4), hovertemplate=f'{x_title}: %' + '{' + x_decimals + '} ' + x_units + '<br>Altitude: %{y:.1f} m<br>Segment Speed: %{marker.color:.2f} Km/h<extra></extra>')
     fig.update_coloraxes(colorbar_title='Speed (Km/h)')
 
     fig.update_layout(
@@ -440,10 +435,10 @@ def altitude_distance_speed_graph(df):
             font=dict(size=14, color='white'),
         )
     )
+    
+    fig.write_html("temp/altitude_time_distance_speed_graph.html")
 
-    fig.write_html("temp/altitude_distance_speed_graph.html")
-
-    return 'temp/altitude_distance_speed_graph.html'
+    return 'temp/altitude_time_distance_speed_graph.html'
 
 
 def create_custom_graph(df, x_axis, y_axis):

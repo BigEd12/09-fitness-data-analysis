@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!--BOOTSTRAP JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <!-- CUSTOM STYLES -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_styles.css') }}">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <!-- KEY-INFO -->
+    <div class="container">
+        <div class="row">
+            <div class="col key-info d-flex align-items-center justify-content-center">
+                <p>{{ basic_info[10][0] }} - {{ basic_info[10][1] }}</p>
+            </div>
+            <div class="col key-info d-flex align-items-center justify-content-center">
+                <p class="zoom-content">{{ basic_info[0] }} Km</p>
+            </div>
+            <div class="col key-info d-flex align-items-center justify-content-center">
+                <p>{{ basic_info[1][0] }} Hrs {{ basic_info[1][1] }} Mins</p>
+            </div>
+            <div class="col key-info d-flex align-items-center justify-content-center">
+                <p>{{ basic_info[2] }} Metres</p>
+            </div>
+            <div class="col key-info d-flex align-items-center justify-content-center">
+                <p>{{ basic_info[7] }} Km/ h Avg.</p>
+            </div>
+            <div class="col key-info d-flex align-items-center justify-content-center">
+                <p>MAX SPEED</p>
+            </div>
+            <div class="col key-info d-flex align-items-center justify-content-center">
+                <p>CALORIES</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Grid: 1 row, 3 columns -->
+    <div class="container-fluid graphical-container">
+        <div class="row d-flex align-items-center">
+            <div class="col graphical"><center><iframe src="{{ chart_1 }}" width="100%" height="400" frameborder="0" class="zoom-content"></iframe></center></div>
+            <div class="col graphical"><center><iframe src="{{ map }}" width="100%" height="400" frameborder="0" ></iframe></center></div>
+            <div class="col graphical"><center><iframe src="{{ chart_2 }}" width="100%" height="400" frameborder="0" class="zoom-content"></iframe></center></div>
+        </div>
+
+        <div class="row d-flex align-items-center">
+            <div class="col graphical">
+                <form name='form1' action="/dash" method="POST">
+                    <input type="hidden" name="form_name" value="form1">
+                    <select id="dropdown1" name="parameter1" class="dropdown">
+                        <option value="distance">Distance</option>
+                        <option value="time">Time</option>
+                    </select>
+
+                    <select id="dropdown2" name="parameter2" class="dropdown">
+                        <option value="altitude">Altitude</option>
+                        <option value="distance">Distance</option>
+                        <option value="speed">Speed</option>
+                    </select>
+
+                    <input type="submit" value="Submit" class="dropdown-button">
+                </form></div>
+
+            <div class="col graphical"><p></p></div>
+
+            <div class="col graphical">
+                <form name='form2' action="/dash" method="POST">
+                    <input type="hidden" name="form_name" value="form2">
+                    <select id="dropdown" name="parameter" class="dropdown">
+                        <option value="distance">Distance</option>
+                        <option value="time">Time</option>
+                    </select>
+
+                <input type="submit" value="Submit" class="dropdown-button">
+            </form></div></div>
+        </div>
+    </div>
+
+    <!-- Third Grid: 1 row, 5 columns -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"><p>{{ equator }}% of the Equator</p><img src="/static/images/planet - w.png" class="fun-stats-images"></div>
+            <div class="col-md-2"><p>You climbed {{ peak_info[3] }}% of {{ peak_info[0] }}'s highest peak: {{ peak_info[1] }}</p><img src="/static/images/mountain - w.png" class="fun-stats-images"></div>
+            <div class="col-md-2"><p >You outrun a {{ animal_speed[1][0] }}</p><img src="{{ animal_speed[1][2] }}" class="fun-stats-images"><p>{{ animal_speed[1][1] }} Km/h</p>/div>
+            <div class="col-md-2"><p>You didn't outrun a {{ animal_speed[0][0] }}</p><img src="{{ animal_speed[0][2] }}" class="fun-stats-images"><p>{{ animal_speed[0][1] }} Km/h</p></div>
+            <div class="col-md-2"><p>5.3 Big Macs ¿</p><img src="/static/images/burger - w.png" class="fun-stats-images"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
