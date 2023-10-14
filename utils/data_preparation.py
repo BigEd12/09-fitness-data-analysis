@@ -1,13 +1,32 @@
 from math import radians, sin, cos, sqrt, atan2
 import pandas as pd
-import datetime
+import xml.etree.ElementTree as ET
+import gpxpy
 
 import xml.etree.ElementTree as ET
+
+def create_prepare_df(path):
+    df = create_df(path)
+    df = prepare_df(df)
+    return df
 
 
 def create_df(path):
     """
-    Takes a directory path and returns a Pandas DF
+    Takes a file path and returns a Pandas DataFrame
+    """
+    file_extension = path.split('.')[-1].lower()
+    
+    if file_extension == 'tcx':
+        return create_df_from_tcx(path)
+    elif file_extension == 'gpx':
+        return create_df_from_gpx(path)
+    else:
+        raise ValueError("Unsupported file format. Only TCX and GPX files are supported.")
+
+def create_df_from_tcx(path):
+    """
+    Takes a TCX file and returns a Pandas DataFrame
     """
     tree = ET.parse(path)
     root = tree.getroot()
@@ -24,18 +43,33 @@ def create_df(path):
     df = pd.DataFrame(data, columns=['Time', 'Latitude', 'Longitude', 'Altitude (M)', 'Total Distance (M)', 'Total Distance (KM)'])
     return df
 
-def seg_speed(row, df):
+def create_df_from_gpx(path):
     """
-    Calculates speed in KM/H for a segment
+    Takes a GPX file and returns a Pandas DataFrame
     """
-    if row.name == 0:
-        return float('NaN')
+    gpx_file = open(path, 'r')
+    gpx = gpxpy.parse(gpx_file)
+    gpx_file.close()
     
-    seconds = row['Time Difference'].total_seconds()
-    distance_diff = row['Total Distance (M)'] - df.loc[row.name - 1, 'Total Distance (M)']
+    data = []
+    cumulative_distance = 0.0
+    prev_point = None
     
-    return (distance_diff / 1000) / (seconds / 3600)
+    for track in gpx.tracks:
+        for segment in track.segments:
+            for point in segment.points:
+                time = point.time
+                lat = point.latitude
+                lon = point.longitude
+                altitude = point.elevation
+                distance = point.distance_3d(prev_point) if prev_point else 0.0
+                cumulative_distance += distance  # Accumulate the distance
+                prev_point = point
+                data.append([time, lat, lon, altitude, cumulative_distance, cumulative_distance / 1000.0])
 
+    df = pd.DataFrame(data, columns=['Time', 'Latitude', 'Longitude', 'Altitude (M)', 'Total Distance (M)', 'Total Distance (KM)'])
+    return df
+# ----------------------------------------------------------------------------------------
 def prepare_df(df):
     df['Time'] = pd.to_datetime(df['Time'])
 
@@ -50,6 +84,22 @@ def prepare_df(df):
     df['Total Time (M)'] = df['Cumulative Time'].dt.total_seconds() / 60
     
     df.drop(columns=['Cumulative Time', ], inplace=True)
+    
+    return df
+
+
+def seg_speed(row, df):
+    """
+    Calculates speed in KM/H for a segment
+    """
+    if row.name == 0:
+        return float('NaN')
+    
+    seconds = row['Time Difference'].total_seconds()
+    distance_diff = row['Total Distance (M)'] - df.loc[row.name - 1, 'Total Distance (M)']
+    
+    return (distance_diff / 1000) / (seconds / 3600)
+
     
 def haversine(lat1, lon1, lat2, lon2):
     """
