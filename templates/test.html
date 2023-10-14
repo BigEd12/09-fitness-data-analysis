@@ -33,7 +33,7 @@
                 <p>{{ basic_info[7] }} Km/ h Avg.</p>
             </div>
             <div class="col key-info d-flex align-items-center justify-content-center">
-                <p>MAX SPEED</p>
+                <p>{{ basic_info[8] }} Km/ h Max.</p>
             </div>
             <div class="col key-info d-flex align-items-center justify-content-center">
                 <p>CALORIES</p>
@@ -85,11 +85,26 @@
     <!-- Third Grid: 1 row, 5 columns -->
     <div class="container">
         <div class="row">
-            <div class="col-md-2"><p>{{ equator }}% of the Equator</p><img src="/static/images/planet - w.png" class="fun-stats-images"></div>
-            <div class="col-md-2"><p>You climbed {{ peak_info[3] }}% of {{ peak_info[0] }}'s highest peak: {{ peak_info[1] }}</p><img src="/static/images/mountain - w.png" class="fun-stats-images"></div>
-            <div class="col-md-2"><p >You outrun a {{ animal_speed[1][0] }}</p><img src="{{ animal_speed[1][2] }}" class="fun-stats-images"><p>{{ animal_speed[1][1] }} Km/h</p>/div>
-            <div class="col-md-2"><p>You didn't outrun a {{ animal_speed[0][0] }}</p><img src="{{ animal_speed[0][2] }}" class="fun-stats-images"><p>{{ animal_speed[0][1] }} Km/h</p></div>
-            <div class="col-md-2"><p>5.3 Big Macs ¿</p><img src="/static/images/burger - w.png" class="fun-stats-images"></div>
+            <div class="col fun-stats">
+                <p>{{ equator }}% of the Equator</p>
+                <img src="/static/images/planet - w.png" class="fun-stats-images">
+            </div>
+            <div class="col fun-stats">
+                <p>You climbed {{ peak_info[3] }}% of {{ peak_info[0] }}'s highest peak: {{ peak_info[1] }}</p>
+                <img src="/static/images/mountain - w.png" class="fun-stats-images">
+            </div>
+            <div class="col fun-stats">
+                <p >You outrun a {{ animal_speed[1][0] }}</p>
+                <img src="{{ animal_speed[1][2] }}" class="fun-stats-images"><p>{{ animal_speed[1][1] }} Km/h</p>
+            </div>
+            <div class="col fun-stats">
+                <p>You didn't outrun a {{ animal_speed[0][0] }}</p>
+                <img src="{{ animal_speed[0][2] }}" class="fun-stats-images">
+                <p>{{ animal_speed[0][1] }} Km/h</p>
+            </div>
+            <div class="col fun-stats">
+                <p>5.3 Big Macs ¿</p><img src="/static/images/burger - w.png" class="fun-stats-images">
+            </div>
         </div>
     </div>
 

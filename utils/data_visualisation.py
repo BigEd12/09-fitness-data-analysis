@@ -411,7 +411,11 @@ def altitude_time_distance_speed_graph(df, x_choice):
                      labels={x_axis: f'{x_title} ({x_units})', 'Altitude (M)': 'Altitude (m)'},
                      title=f'{x_title} - Speed - Altitude')
 
-    fig.update_traces(line=dict(width=4), hovertemplate=f'{x_title}: %' + '{' + x_decimals + '} ' + x_units + '<br>Altitude: %{y:.1f} m<br>Segment Speed: %{marker.color:.2f} Km/h<extra></extra>')
+    if x_choice == 'distance':
+        fig.update_traces(line=dict(width=4), hovertemplate='Distance: %{x:.2f} Km<br>Altitude: %{y:.1f} m<br>Segment Speed: %{marker.color:.2f} Km/h<extra></extra>')
+    else:
+        fig.update_traces(line=dict(width=4), hovertemplate='Time: %{x:.1f} mins<br>Altitude: %{y:.1f} m<br>Segment Speed: %{marker.color:.2f} Km/h<extra></extra>')
+
     fig.update_coloraxes(colorbar_title='Speed (Km/h)')
 
     fig.update_layout(

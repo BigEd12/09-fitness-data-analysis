@@ -50,3 +50,16 @@ body {
     font-size: 12px;
     border-color: #123C76;
 }
+
+/* FUN-STATS */
+.fun-stats-images {
+    max-height: 100px;
+    width: auto;
+}
+
+.fun-stats {
+    background-color: #123C76;
+    margin: 1%;
+    border-radius: 20px;
+    font-size: 12px;
+}
