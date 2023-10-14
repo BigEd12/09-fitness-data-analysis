@@ -199,13 +199,15 @@ def distance_speed_graph(df):
     fig.update_yaxes(range=[0, y_lims])
     
     
+    average_speed = data_preparation.speed_info(df)[0]
+    
     fig.add_shape(
         dict(
             type='line',
             x0=0,
             x1=x_lims,
-            y0=sum(avg_speeds) / len(avg_speeds),
-            y1=sum(avg_speeds) / len(avg_speeds),
+            y0=average_speed,
+            y1=average_speed,
             line=dict(color='#6CE5E8', width=2, dash='dash'),
             name='Average Speed Km/h',
         )
@@ -286,17 +288,19 @@ def time_speed_graph(df):
 
     x_lims = max(avg_times) * 1.01
     y_lims = df['Segment Speed'].max() * 1.1
-
+    
     fig.update_xaxes(range=[0, x_lims])
     fig.update_yaxes(range=[0, y_lims])
+    
+    average_speed = data_preparation.speed_info(df)[0]
 
     fig.add_shape(
         dict(
             type='line',
             x0=0,
             x1=x_lims,
-            y0=sum(avg_speeds) / len(avg_speeds),
-            y1=sum(avg_speeds) / len(avg_speeds),
+            y0=average_speed,
+            y1=average_speed,
             line=dict(color='#6CE5E8', width=2, dash='dash'),
             name='Average Speed Km/h',
         )
