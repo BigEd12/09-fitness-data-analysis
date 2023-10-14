@@ -40,7 +40,7 @@ def time_distance_graph(df):
         hoverlabel=dict(
             bgcolor='#123C76',
             bordercolor='#123C76',
-            font=dict(size=24, color='white'),
+            font=dict(size=14, color='white'),
         )
     )
     
@@ -93,7 +93,7 @@ def distance_altitude_graph(df):
         hoverlabel=dict(
             bgcolor='#123C76',
             bordercolor='#123C76',
-            font=dict(size=24, color='white'),
+            font=dict(size=14, color='white'),
         )
     )
     
@@ -141,7 +141,7 @@ def time_altitude_graph(df):
     hoverlabel=dict(
         bgcolor='#123C76',
         bordercolor='#123C76',
-        font=dict(size=24, color='white'),
+        font=dict(size=14, color='white'),
     ))
 
     save_name = "temp/time_altitude_graph.html"
@@ -241,7 +241,7 @@ def distance_speed_graph(df):
         hoverlabel=dict(
             bgcolor='#123C76',
             bordercolor='#123C76',
-            font=dict(size=24, color='white'),
+            font=dict(size=14, color='white'),
         )
     )
     
@@ -338,7 +338,7 @@ def time_speed_graph(df):
         hoverlabel=dict(
             bgcolor='#123C76',
             bordercolor='#123C76',
-            font=dict(size=24, color='white'),
+            font=dict(size=14, color='white'),
         )
     )
 
@@ -367,7 +367,7 @@ def plot_line_map(df):
     for lat, lon, dist, alt, time in zip(latitudes, longitudes, distances, altitudes, times):
         tooltip = folium.Tooltip(
             text=f"Distance: {round(dist / 1000, 2)} Km<br>Altitude: {round(alt, 1)} Metres, Time: {round(time, 1)} Minutes",
-            style="font-size: 24px; background-color: #123C76; color: #FFFFFF;",
+            style="font-size: 14px; background-color: #123C76; color: #FFFFFF;",
             permanent=False,
         )
 
@@ -437,7 +437,7 @@ def altitude_distance_speed_graph(df):
         hoverlabel=dict(
             bgcolor='#123C76',
             bordercolor='#123C76',
-            font=dict(size=24, color='white'),
+            font=dict(size=14, color='white'),
         )
     )
 

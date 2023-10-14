@@ -7,14 +7,14 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 5px;
-    padding: 2%;
+    padding: 2% 2% 0 2%;
 }
 
 .second-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 5px;
-    padding: 2%;
+    padding: 0 2% 2% 2%;
 }
 
 .col {
@@ -30,6 +30,8 @@
     text-align: center;
 }
 
+/* KEY-INFO */
+
 .key-info-div {
     display: flex;
     justify-content: center;
@@ -43,9 +45,9 @@
     background-color: #123C76;
     overflow: visible;
     width: 60%;
-    height: 75%;
+    height: 50%;
     padding: 10px;
-    font-size: 24px;
+    font-size: 14px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -60,10 +62,14 @@
     transform: scale(1.7);
 }
 
+/* MAP */
+
 .map {
     grid-column: span 3;
-    grid-row: span 5;
+    grid-row: span 4;
 }
+
+/* CHARTS */
 
 .chart {
     grid-column: span 2;
@@ -83,38 +89,6 @@
     transform: scale(1.4);
 }
 
-
-.fun-stats-div {
-    display: flex;
-    justify-content: center;
-}
-
-.fun-stats {
-    grid-column: span 1;
-    text-align: center;
-    border-radius: 20px;
-    background-color: #2D8BBA;
-    overflow: visible;
-    width: 60%;
-    font-size: 24px;
-}
-
-.fun-stats-div:hover .zoom-content {
-    transform: scale(1.7);
-    transform-origin: center bottom;
-}
-
-.fun-stats-images {
-    width: 40%;
-    height: 70%;
-}
-
-img {
-    padding-top: 5%;
-    padding-bottom: 3%;
-}
-
-
 .dropdown-div form {
     display: flex;
     align-items: center;
@@ -133,22 +107,20 @@ img {
     background-color: #123C76;
     text-align: center;
     border-radius: 20px;
-    /* width: 33%; */
     padding: 10px;
-    font-size: 22px;
+    font-size: 12px;
     color: #ffffff;
     border-color: #123C76;
-    box-shadow: 0 0 0 #2D8BBA; /* Initial glow effect */
-    transition: box-shadow 1s; /* Add a transition for smooth effect */
+    box-shadow: 0 0 0 #2D8BBA;
+    transition: box-shadow 1s;
 }
 
 #dropdown2 {
     margin: 0 2%;
 }
 
-/* Apply the pulsating glow effect on hover */
 .dropdown:hover {
-    animation: pulse 2s infinite; /* Add the pulsating animation */
+    animation: pulse 2s infinite;
 }
 
 .dropdown-button {
@@ -157,19 +129,17 @@ img {
     border-radius: 20px;
     overflow: visible;
     padding: 10px;
-    font-size: 22px;
+    font-size: 12px;
     color: #ffffff;
     border-color: #123C76;
-    box-shadow: 0 0 0 #2D8BBA; /* Initial glow effect */
-    transition: box-shadow 1s; /* Add a transition for smooth effect */
+    box-shadow: 0 0 0 #2D8BBA;
+    transition: box-shadow 1s;
 }
 
-/* Apply the pulsating glow effect on hover */
 .dropdown-button:hover {
-    animation: pulse 2s infinite; /* Add the pulsating animation */
+    animation: pulse 2s infinite;
 }
 
-/* Define the pulsating animation */
 @keyframes pulse {
     0% {
         box-shadow: 0 0 5px #2D8BBA;
@@ -181,6 +151,42 @@ img {
         box-shadow: 0 0 5px #2D8BBA;
     }
 }
+
+
+/* FUN STATS */
+.fun-stats-div {
+    display: flex;
+    justify-content: center;
+}
+
+.fun-stats {
+    grid-column: span 1;
+    text-align: center;
+    border-radius: 20px;
+    background-color: #2D8BBA;
+    overflow: visible;
+    width: 60%;
+    height: 75%;
+    font-size: 14px;
+}
+
+.fun-stats-div:hover .zoom-content {
+    transform: scale(1.7);
+    transform-origin: center bottom;
+}
+
+.fun-stats-images {
+    width: 40%;
+    height: 40%;
+}
+
+img {
+    padding-top: 5%;
+    padding-bottom: 3%;
+}
+
+
+
 
 
 

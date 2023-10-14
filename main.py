@@ -40,6 +40,7 @@ def dash():
         closest_peak.append(ascent_percent)
         
         animal_speed = data_preparation.find_faster_slower_animals(basic_info[8])
+        basic_info
 
         
         
@@ -51,7 +52,7 @@ def dash():
             
             
 
-    return render_template('dash.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, peak_info=closest_peak, animal_speed=animal_speed)
+    return render_template('test.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, peak_info=closest_peak, animal_speed=animal_speed)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
