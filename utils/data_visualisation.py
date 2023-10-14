@@ -217,9 +217,13 @@ def distance_speed_graph(df):
     fig.add_trace(go.Scatter(x=[None], y=[None], mode='lines', line=dict(color='#6CE5E8', width=2, dash='dash'), name='Average Speed Km/h', showlegend=True))
 
     max_speed_value, ms_id = data_preparation.highest_average_speed(df)
-    max_speed_distance = df.iloc[ms_id]['Total Distance (KM)']
-    max_speed_text = ['Highest Speed Obtained: Distance={} Km, Speed={} Km/h'.format(
-                       round(df.iloc[df['Segment Speed'].idxmax()]['Total Distance (M)'] / 1000, 2), round(df['Segment Speed'].max(), 2)) for distance, speed in zip(avg_distances, avg_speeds)]
+    max_speed_distance = df.iloc[ms_id]['Total Distance (M)']
+       
+    
+    max_speed_text = 'Highest Speed Obtained: Distance={} Km, Speed={} Km/h'.format(
+                       round(max_speed_distance / 1000, 2), round(max_speed_value, 2))
+    
+    
     fig.add_trace(
         go.Scatter(x=[max_speed_distance], y=[max_speed_value],
                    mode='markers',
@@ -358,7 +362,7 @@ def plot_line_map(df):
 
     center_lat = sum(latitudes) / len(latitudes)
     center_lon = sum(longitudes) / len(longitudes)
-    m = folium.Map(location=[center_lat, center_lon], zoom_start=11)
+    m = folium.Map(location=[center_lat, center_lon], zoom_start=10)
 
     route_coordinates = list(zip(latitudes, longitudes))
 
