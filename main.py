@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, send_from_directory, render_template_string
+from flask import Flask, render_template, request, redirect, url_for, send_file, send_from_directory
 from flask_bootstrap import Bootstrap
 
 from utils import data_preparation, data_visualisation
@@ -7,13 +7,14 @@ from utils import data_preparation, data_visualisation
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
 app.config['SESSION_TYPE'] = 'filesystem'
-# app.config['TEMPLATES_AUTO_RELOAD'] = True
-# app.add_url_rule('/temp/<path:filename>', endpoint='temp', view_func=app.send_static_file)
 
 Bootstrap(app)
 
 @app.route('/')
 def index():
+    """
+    Load file page
+    """
     return render_template('index.html')
 
 uploaded_file_data = None
@@ -55,9 +56,10 @@ def dash():
                 chart_2 = data_visualisation.altitude_time_distance_speed_graph(df, parameter)
                 
         graphical = [chart_1, map_data, chart_2]
+        fun_stats = [equator, closest_peak, animal_speed]
             
     
-    return render_template('dashboard.html', basic_info=basic_info, graphical=graphical, equator=equator, peak_info=closest_peak, animal_speed=animal_speed)
+    return render_template('dashboard.html', basic_info=basic_info, graphical=graphical, fun_stats=fun_stats)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

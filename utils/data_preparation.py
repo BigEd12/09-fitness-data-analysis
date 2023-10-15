@@ -31,14 +31,17 @@ def create_df_from_tcx(path):
     tree = ET.parse(path)
     root = tree.getroot()
     
-    data = []
-    for trackpoint in root.findall('.//{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}Trackpoint'):
-        time = trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}Time').text
-        lat = trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}Position/{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}LatitudeDegrees').text
-        lon = trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}Position/{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}LongitudeDegrees').text
-        altitude = trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}AltitudeMeters').text
-        distance = trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}DistanceMeters').text
-        data.append([time, float(lat), float(lon), float(altitude), float(distance), float(float(distance) / 1000)])
+    data = [
+        [
+            trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}Time').text,
+            float(trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}Position/{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}LatitudeDegrees').text),
+            float(trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}Position/{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}LongitudeDegrees').text),
+            float(trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}AltitudeMeters').text),
+            float(trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}DistanceMeters').text),
+            float(float(trackpoint.find('{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}DistanceMeters').text) / 1000)
+        ]
+        for trackpoint in root.findall('.//{http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2}Trackpoint')
+    ]
 
     df = pd.DataFrame(data, columns=['Time', 'Latitude', 'Longitude', 'Altitude (M)', 'Total Distance (M)', 'Total Distance (KM)'])
     return df
@@ -55,15 +58,23 @@ def create_df_from_gpx(file):
     
     for track in gpx.tracks:
         for segment in track.segments:
+            segment_data = []
             for point in segment.points:
                 time = point.time
                 lat = point.latitude
                 lon = point.longitude
                 altitude = point.elevation
-                distance = point.distance_3d(prev_point) if prev_point else 0.0
-                cumulative_distance += distance
+
+                if prev_point is not None:
+                    distance = point.distance_3d(prev_point)
+                    cumulative_distance += distance
+                else:
+                    distance = 0.0
+
+                segment_data.append([time, lat, lon, altitude, cumulative_distance, cumulative_distance / 1000.0])
                 prev_point = point
-                data.append([time, lat, lon, altitude, cumulative_distance, cumulative_distance / 1000.0])
+
+            data.extend(segment_data)
 
     df = pd.DataFrame(data, columns=['Time', 'Latitude', 'Longitude', 'Altitude (M)', 'Total Distance (M)', 'Total Distance (KM)'])
     return df
