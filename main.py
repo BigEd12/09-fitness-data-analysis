@@ -31,7 +31,7 @@ def dash():
         map_data = data_visualisation.plot_line_map(df)
         chart_1 = data_visualisation.time_speed_graph(df)
         chart_2 = data_visualisation.altitude_time_distance_speed_graph(df, 'distance')
-        graphical = [chart_1, map_data, chart_2]
+        
 
         equator = data_preparation.closest_route(basic_info[0])
         
@@ -53,6 +53,8 @@ def dash():
                 print(f'name: {request.form["form_name"]}')
                 parameter = request.form.get('parameter')
                 chart_2 = data_visualisation.altitude_time_distance_speed_graph(df, parameter)
+                
+        graphical = [chart_1, map_data, chart_2]
             
     
     return render_template('dashboard.html', basic_info=basic_info, graphical=graphical, equator=equator, peak_info=closest_peak, animal_speed=animal_speed)
