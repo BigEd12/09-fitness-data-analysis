@@ -1,13 +1,17 @@
 body {
     /* display: flex; */
-    background-color: #0B2447;
+    background-color: #0B2447 !important;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    color: #fff;
+    text-align: center !important;
+    color: #fff !important;
 }
 
 /* KEY-INFO */
+.key-info-container {
+    margin-top: 2%;
+}
+
 .key-info {
     background-color: #123C76;
     margin: 1%;
@@ -30,8 +34,9 @@ body {
 }
 
 .graphical {
-    margin: 1%;
+    margin: 4px;
     transition: 1s ease-in-out;
+    padding: 0 !important;
 }
 
 

@@ -1,6 +1,7 @@
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.offline import plot
 import folium
 
 from utils import data_preparation
@@ -48,11 +49,8 @@ def time_distance_graph(df):
         title_font=dict(color='white'),
     )
 
-    save_name = "temp/time_distance_graph.html"
-    
-    fig.write_html(save_name)
-
-    return save_name
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    return plot_div
 
 def distance_altitude_graph(df):    
     fig = go.Figure()
@@ -97,11 +95,8 @@ def distance_altitude_graph(df):
         )
     )
     
-    save_name = "temp/altitude_distance_chart.html"
-    
-    fig.write_html(save_name)
-
-    return save_name
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    return plot_div
 
 
 def time_altitude_graph(df):
@@ -144,11 +139,8 @@ def time_altitude_graph(df):
         font=dict(size=14, color='white'),
     ))
 
-    save_name = "temp/time_altitude_graph.html"
-    
-    fig.write_html(save_name)
-
-    return save_name
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    return plot_div
 
 
 
@@ -257,12 +249,9 @@ def distance_speed_graph(df):
         )
     )
     )
-
-    save_name = "temp/distance_speed_chart.html"
     
-    fig.write_html(save_name)
-
-    return save_name
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    return plot_div
 
 
 def time_speed_graph(df):
@@ -346,11 +335,10 @@ def time_speed_graph(df):
         )
     )
 
-    save_name = "temp/time_speed_graph.html"
     
-    fig.write_html(save_name)
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    return plot_div
 
-    return save_name
 
 
 def plot_line_map(df):
@@ -384,7 +372,7 @@ def plot_line_map(df):
             fill_opacity=0.7,
             tooltip=tooltip,
         ).add_to(m)
-        
+
     dark_tile = folium.TileLayer(
         tiles='https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png',
         attr='© <a href="https://carto.com/attributions">CartoDB</a> contributors',
@@ -392,10 +380,11 @@ def plot_line_map(df):
         opacity=0.8,
     )
     dark_tile.add_to(m)
-        
-    map_filename = "temp/map.html"
-    m.save(map_filename)
-    return map_filename
+
+
+    map_html = m.get_root().render()
+    return map_html
+
 
 
 def altitude_time_distance_speed_graph(df, x_choice):
@@ -403,12 +392,10 @@ def altitude_time_distance_speed_graph(df, x_choice):
         x_axis = 'Total Distance (KM)'
         x_title = 'Distance'
         x_units = 'Km'
-        x_decimals = '.2f'
     else:
         x_axis = 'Total Time (M)'
         x_title = 'Time'
         x_units = 'Mins'
-        x_decimals = '.0f'
     
     fig = px.scatter(df, x=x_axis, y='Altitude (M)', color='Segment Speed', color_continuous_scale='Agsunset',
                      hover_data=[x_axis, 'Altitude (M)', 'Segment Speed'],
@@ -444,9 +431,8 @@ def altitude_time_distance_speed_graph(df, x_choice):
         )
     )
     
-    fig.write_html("temp/altitude_time_distance_speed_graph.html")
-
-    return 'temp/altitude_time_distance_speed_graph.html'
+    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
+    return plot_div
 
 
 def create_custom_graph(df, x_axis, y_axis):

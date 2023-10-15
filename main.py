@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, send_file, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, send_file, send_from_directory, render_template_string
 from flask_bootstrap import Bootstrap
 
 from utils import data_preparation, data_visualisation
@@ -28,10 +28,10 @@ def dash():
         time = [basic_info[1].seconds // 3600, (basic_info[1].seconds % 3600) // 60]
         basic_info[1] = time
         
-        map = data_visualisation.plot_line_map(df)
-        
+        map_data = data_visualisation.plot_line_map(df)
         chart_1 = data_visualisation.time_speed_graph(df)
         chart_2 = data_visualisation.altitude_time_distance_speed_graph(df, 'distance')
+        graphical = [chart_1, map_data, chart_2]
 
         equator = data_preparation.closest_route(basic_info[0])
         
@@ -54,10 +54,8 @@ def dash():
                 parameter = request.form.get('parameter')
                 chart_2 = data_visualisation.altitude_time_distance_speed_graph(df, parameter)
             
-            
-            
-
-    return render_template('dashboard.html', basic_info=basic_info, map=map, chart_1=chart_1, chart_2=chart_2, equator=equator, peak_info=closest_peak, animal_speed=animal_speed)
+    
+    return render_template('dashboard.html', basic_info=basic_info, graphical=graphical, equator=equator, peak_info=closest_peak, animal_speed=animal_speed)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -79,6 +77,15 @@ def upload_file():
 
     return redirect(url_for('dash'))
 
+@app.route('/iframe')
+def iframe():
+    if not uploaded_file_data.empty:
+        map_html = data_visualisation.plot_line_map(uploaded_file_data)  
+    else:
+        iframe = ''
+
+    return render_template('iframe.html', map_html=map_html)
+
 
 @app.route('/temp/<path:filename>')
 def serve_temp(filename):
@@ -86,4 +93,4 @@ def serve_temp(filename):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
