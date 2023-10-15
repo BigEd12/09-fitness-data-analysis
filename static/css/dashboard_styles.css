@@ -34,7 +34,7 @@ body {
 }
 
 .graphical {
-    margin: 4px;
+    margin: 4px 0;
     transition: 1s ease-in-out;
     padding: 0 !important;
 }
