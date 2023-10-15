@@ -75,24 +75,23 @@ body {
 }
 
 /* HOVER EFFECTS */
-.key-info:hover {
-    animation: pulse 1.5s infinite;
-    transform: scale(1.7);
-}
+@media screen and (min-width: 768px) {
+    .key-info:hover,
+    .fun-stats:hover {
+        animation: pulse 1.5s infinite;
+        transform: scale(1.7);
+    }
 
-.fun-stats:hover {
-    animation: pulse 1.5s infinite;
-    transform: scale(1.7);
-}
 
-.chart_1:hover {
-    transform: scale(1.5);
-    transform-origin: left center;
-}
+    .chart_1:hover {
+        transform: scale(1.5);
+        transform-origin: left center;
+    }
 
-.chart_2:hover {
-    transform: scale(1.5);
-    transform-origin: right center;
+    .chart_2:hover {
+        transform: scale(1.5);
+        transform-origin: right center;
+    }
 }
 
 @keyframes pulse {
