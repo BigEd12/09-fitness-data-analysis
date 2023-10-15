@@ -161,17 +161,10 @@ def elevation_info(df):
     return total_ascent, total_descent, total_change, lowest, highest
 
 def highest_average_speed(df, window_size=6):
-    max_avg = -1
-    max_avg_index = -1
-
-    for i in range(len(df) - window_size + 1):
-        window = df.iloc[i:i + window_size]
-        avg = window['Segment Speed'].mean()
-        
-        if avg > max_avg:
-            max_avg = avg
-            max_avg_index = i + window_size // 2
-
+    max_avg, max_avg_index = max(
+        (window['Segment Speed'].mean(), i + window_size // 2)
+        for i, window in enumerate((df.iloc[i:i + window_size] for i in range(len(df) - window_size + 1)))
+    )
     return [max_avg, max_avg_index]
 
 def speed_info(df):
