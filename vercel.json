@@ -1,21 +1,14 @@
 {
-    "functions": {
-      "main.py": {
-        "memory": 3008,
-        "maxDuration": 30
-      }
-    },
     "builds": [
-      {
-        "src": "main.py",
-        "use": "@vercel/python"
-      },
+        {
+            "src": "main.py",
+            "use": "@vercel/python"
+        }
     ],
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "main.py"
-      }
+        {
+            "src": "/(.*)",
+            "dest": "main.py"
+        }
     ]
 }
-  
