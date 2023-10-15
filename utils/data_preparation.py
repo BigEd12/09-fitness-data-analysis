@@ -183,8 +183,6 @@ def start_date_time(df):
     """
     date_start_pre = df.iloc[0].Time
     
-    # date_start_pre = df.iloc[0].Time + datetime.timedelta(days=4) - datetime.timedelta(hours=12) - datetime.timedelta(minutes=38)
-    
     start_date = date_start_pre.strftime("%d-%m-%Y")
     start_time = date_start_pre.strftime("%H:%M")
     
