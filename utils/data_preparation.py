@@ -244,7 +244,7 @@ def find_faster_slower_animals(speed):
         'hippo': '7',
         'pig': '10',
         'alligator': '8',
-        'panda': '0',
+        'panda': '25',
         'african_bush_elephant': '1',
         'anaconda': '9',
         'grey_squirrel': '11',
