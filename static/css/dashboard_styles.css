@@ -7,9 +7,26 @@ body {
     color: #fff !important;
 }
 
+a {
+    color: #fff;
+    text-decoration: none
+}
+
+.home-button-container {
+    margin-top: 1%;
+}
+
+.home-button {
+    background-color: #2D8BBA;
+    margin: 1%;
+    border-radius: 20px;
+    font-size: 14px;
+    padding: 8px 2%;
+}
+
 /* KEY-INFO */
 .key-info-container {
-    margin-top: 2%;
+    margin-top: 1%;
 }
 
 .key-info {
@@ -30,7 +47,7 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 2% 0;
+    margin: 0;
 }
 
 .graphical {
