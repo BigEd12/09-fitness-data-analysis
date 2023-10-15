@@ -86,7 +86,13 @@ def upload_file():
 
 @app.route('/iframe')
 def iframe():
-    map_html = data_visualisation.plot_line_map(uploaded_file_data)  
+    global uploaded_file_data
+    print(type(uploaded_file_data))
+    if uploaded_file_data is not None:
+        print('ok here')
+        map_html = data_visualisation.plot_line_map(uploaded_file_data)
+    else:
+        map_html = "<p>No data available</p>"
 
     return render_template('iframe.html', map_html=map_html)
 
