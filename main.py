@@ -79,10 +79,7 @@ def upload_file():
 
 @app.route('/iframe')
 def iframe():
-    if not uploaded_file_data.empty:
-        map_html = data_visualisation.plot_line_map(uploaded_file_data)  
-    else:
-        iframe = ''
+    map_html = data_visualisation.plot_line_map(uploaded_file_data)  
 
     return render_template('iframe.html', map_html=map_html)
 
