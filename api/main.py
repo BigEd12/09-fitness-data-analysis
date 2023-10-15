@@ -1,10 +1,13 @@
+import os
+
 from flask import Flask, render_template, request, redirect, url_for, send_file, send_from_directory
 from flask_bootstrap import Bootstrap
 
 from utils import data_preparation, data_visualisation
 
 #---------------------- FLASK ----------------------#
-app = Flask(__name__)
+app = Flask(__name__, template_folder=os.path.abspath("templates"), static_folder=os.path.abspath("static"))
+
 app.config["SECRET_KEY"] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
 app.config['SESSION_TYPE'] = 'filesystem'
 
@@ -94,4 +97,4 @@ def serve_temp(filename):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
