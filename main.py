@@ -33,7 +33,7 @@ def dash():
         chart_1 = data_visualisation.time_speed_graph(df)
         chart_2 = data_visualisation.altitude_time_distance_speed_graph(df, 'distance')
 
-        equator = round((basic_info[0] / 40075) * 100, 2)
+        equator = data_preparation.closest_route(basic_info[0])
         
         closest_peak = data_preparation.closest_peak(basic_info[2])
         ascent_percent = round((basic_info[2] / closest_peak[2]) * 100, 2)

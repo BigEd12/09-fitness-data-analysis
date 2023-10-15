@@ -11,16 +11,16 @@ def create_prepare_df(path):
     return df
 
 
-def create_df(path):
+def create_df(file):
     """
     Takes a file path and returns a Pandas DataFrame
     """
-    file_extension = path.split('.')[-1].lower()
+    file_extension = file.filename.split('.')[-1].lower()
     
     if file_extension == 'tcx':
-        return create_df_from_tcx(path)
+        return create_df_from_tcx(file)
     elif file_extension == 'gpx':
-        return create_df_from_gpx(path)
+        return create_df_from_gpx(file)
     else:
         raise ValueError("Unsupported file format. Only TCX and GPX files are supported.")
 
@@ -43,13 +43,11 @@ def create_df_from_tcx(path):
     df = pd.DataFrame(data, columns=['Time', 'Latitude', 'Longitude', 'Altitude (M)', 'Total Distance (M)', 'Total Distance (KM)'])
     return df
 
-def create_df_from_gpx(path):
+def create_df_from_gpx(file):
     """
     Takes a GPX file and returns a Pandas DataFrame
     """
-    gpx_file = open(path, 'r')
-    gpx = gpxpy.parse(gpx_file)
-    gpx_file.close()
+    gpx = gpxpy.parse(file)
     
     data = []
     cumulative_distance = 0.0
@@ -63,7 +61,7 @@ def create_df_from_gpx(path):
                 lon = point.longitude
                 altitude = point.elevation
                 distance = point.distance_3d(prev_point) if prev_point else 0.0
-                cumulative_distance += distance  # Accumulate the distance
+                cumulative_distance += distance
                 prev_point = point
                 data.append([time, lat, lon, altitude, cumulative_distance, cumulative_distance / 1000.0])
 
@@ -197,7 +195,7 @@ def basic_info(df):
     
     distance = round(calc_total_distance(df), 2)
     moving_time = calc_moving_time(df)
-    total_ascent = elevation_info(df)[0]
+    total_ascent = round(elevation_info(df)[0], 2)
     total_descent = elevation_info(df)[1]
     altitude_change = round(elevation_info(df)[2], 2)
     lowest_altitude = round(elevation_info(df)[3], 2)
@@ -230,6 +228,11 @@ def find_faster_slower_animals(speed):
         'house_mouse': 13,
         'polar_bear': 30,
         'cheetah': 120,
+        'snail': 0.0085,
+        'starfish': 0.000576,
+        'koala': 30,
+        'cockroach': 5.4,
+        'Bertie - Guiness fastest tortoise': 1.007,
     }
     
     animal_images = {
@@ -250,7 +253,12 @@ def find_faster_slower_animals(speed):
         'brown_bear': '13',
         'house_mouse': '15',
         'polar_bear': '14',
-        'cheetah': 0,
+        'cheetah': '24',
+        'snail': '19',
+        'starfish': '20',
+        'koala': '21',
+        'cockroach': '22',
+        'Bertie - Guiness fastest tortoise': '23',
     }
 
     above_speed = 1000
@@ -351,3 +359,43 @@ def closest_peak(altitude, peaks=peaks):
 
     return closest_peak
     
+    
+routes = {
+    'Italy': [('Amalfi Coast Drive', 50), ('Stelvio Pass', 24.7)],
+    'France': [('Route 66', 2448), ('Trollstigen', 20)],
+    'USA': [('Pacific Coast Highway', 1470), ('Blue Ridge Parkway', 755)],
+    'Australia': [('Great Ocean Road', 243), ('Kangaroo Island Coastal Drive', 155)],
+    'Canada': [('Icefields Parkway', 232), ('Cabot Trail', 298)],
+    'Peru': [('Machu Picchu Inca Trail', 43)],
+    'Nepal': [('Everest Base Camp Trek', 130)],
+    'New Zealand': [('Milford Sound Road', 120)],
+    'Argentina': [('Ruta 40', 5221)],
+    'Scotland': [('North Coast 500', 516)],
+    'Spain': [('Camino de Santiago', 800)],
+    'Ireland': [('Wild Atlantic Way', 2500)],
+    'Norway': [('Norwegian Scenic Routes', 2300), ('Atlantic Road', 8)],
+    'Germany': [('Romantic Road', 350)],
+    'Switzerland': [('Grand Tour of Switzerland', 1600)],
+    'India': [('Manali-Leh Highway', 479)],
+    'Chile': [('Carretera Austral', 1240)],
+    'South Africa': [('Garden Route', 300)],
+    'China': [('Guoliang Tunnel Road', 1.2)],
+    'Vietnam': [('Hai Van Pass', 21)],
+    'Turkey': [('Cappadocia', 20)],
+    'Earth': [('Equator', 40075)]
+}
+
+def closest_route(distance, routes=routes):
+    closest_route = None
+    closest_difference = float('inf')
+
+    for country, data_list in routes.items():
+        for route_name, route_distance in data_list:
+            if route_distance > distance:
+                difference = route_distance - distance
+                if difference < closest_difference:
+                    closest_difference = difference
+                    percent = round((distance / route_distance) * 100, 2)
+                    closest_route = [country, route_name, route_distance, percent]
+
+    return closest_route
