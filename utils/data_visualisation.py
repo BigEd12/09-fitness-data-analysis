@@ -124,53 +124,20 @@ def distance_altitude_graph(df):
 def time_altitude_graph(df):
     fig = go.Figure()
 
-    fig.add_trace(
-        go.Scatter(x=df['Total Time (M)'], y=df['Altitude (M)'],
-                   line=dict(width=1, color='#6CE5E8'),
-                   hoverinfo='text',
-                   text=['Time={} min, Altitude={} M'.format(round(time, 2), round(altitude, 2))
-                              for time, altitude in zip(df['Total Time (M)'], df['Altitude (M)'])],
-                   mode='lines+markers',
-                   textfont=dict(size=12)
-                   )
-    )
+    fig.add_trace(go.Scatter(x=df['Total Time (M)'], y=df['Altitude (M)'], line=dict(width=1, color='#6CE5E8'), hoverinfo='text', text=['Time={} min, Altitude={} M'.format(round(time, 2), round(altitude, 2)) for time, altitude in zip(df['Total Time (M)'], df['Altitude (M)'])], mode='lines+markers', textfont=dict(size=10)))
 
     x_lims = df.iloc[-1]['Total Time (M)'] * 1.1
     y_lims = df['Altitude (M)'].max() * 1.1
 
-    fig.update_layout(xaxis_showgrid=False, yaxis_showgrid=False)
-
     fig.update_xaxes(title_text='Time (min)', range=[0, x_lims])
     fig.update_yaxes(title_text='Altitude (M)', range=[0, y_lims])
 
-    fig.update_layout(
-        plot_bgcolor='#0B2447',
-        paper_bgcolor='#0B2447',
-        xaxis=dict(
-            showgrid=False,
-            gridcolor='#6CE5E8',
-            title_font=dict(color='white', size=12),
-            tickfont=dict(color='white', size=12)
-            ),
-        yaxis=dict(
-            showgrid=False,
-            gridcolor='#6CE5E8',
-            title_font=dict(color='white', size=12),
-            tickfont=dict(color='white', size=12)
-            ),
-    )
+    fig.update_layout(plot_bgcolor='#0B2447', paper_bgcolor='#0B2447', xaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white', size=10), tickfont=dict(color='white', size=10)), yaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white', size=10), tickfont=dict(color='white', size=10)))
 
-    fig.update_layout(
-        title_text='Time - Altitude', 
-        title_font=dict(color='white', size=12)
-    )
+    fig.update_layout(title_text='Time - Altitude', title_font=dict(color='white', size=10))
+    fig.update_layout(margin=dict(l=10, r=10, t=25, b=10))
 
-    fig.update_traces(
-    hoverlabel=dict(
-        bgcolor='#123C76',
-        bordercolor='#123C76',
-        font=dict(size=14, color='white'),
-    ))
+    fig.update_traces(hoverlabel=dict(bgcolor='#123C76', bordercolor='#123C76', font=dict(size=10, color='white')))
 
     plot_div = plot(fig, output_type='div', include_plotlyjs=False)
     return plot_div
@@ -309,10 +276,7 @@ def distance_speed_graph(df):
 
 
 def time_speed_graph(df):
-    fig = go.Figure()
-
-    avg_times = []
-    avg_speeds = []
+    avg_times, avg_speeds = [], []
 
     for i in range(0, len(df), 6):
         avg_time = df['Total Time (M)'].iloc[i:i+6].mean()
@@ -321,88 +285,21 @@ def time_speed_graph(df):
         avg_speeds.append(avg_speed)
 
     averaged_data = pd.DataFrame({'Time': avg_times, 'Speed': avg_speeds})
-
-    fig.add_trace(
-        go.Scatter(x=averaged_data['Time'], y=averaged_data['Speed'],
-                   mode='lines+markers',
-                   marker=dict(size=4, color='#6CE5E8'),
-                   hoverinfo='text',
-                   text=['Time={} min, Speed={} Km/h'.format(
-                       round(time, 2), round(speed, 2)) for time, speed in zip(avg_times, avg_speeds)],
-                   textfont=dict(size=10),
-                   showlegend=False  # Set showlegend to False to hide this trace in the legend
-                   )
-    )
-
-    x_lims = max(avg_times) * 1.01
-    y_lims = df['Segment Speed'].max() * 1.1
-    
-    fig.update_xaxes(range=[0, x_lims])
-    fig.update_yaxes(range=[0, y_lims])
-    
-    average_speed = data_preparation.speed_info(df)[0]
-
-    fig.add_shape(
-        dict(
-            type='line',
-            x0=0,
-            x1=x_lims,
-            y0=average_speed,
-            y1=average_speed,
-            line=dict(color='#6CE5E8', width=2, dash='dash'),
-            showlegend=False  # Set showlegend to False to hide this shape in the legend
-        )
-    )
-
+    max_time, max_speed = max(avg_times) * 1.01, df['Segment Speed'].max() * 1.1
+    avg_speed = data_preparation.speed_info(df)[0]
     max_speed_value, ms_id = data_preparation.highest_average_speed(df)
     max_speed_time = df.iloc[ms_id]['Total Time (M)']
+    max_speed_text = 'Highest Speed Obtained: Time={} min, Speed={} Km/h'.format(round(max_speed_time, 2), round(max_speed_value, 2))
 
-    max_speed_text = 'Highest Speed Obtained: Time={} min, Speed={} Km/h'.format(
-        round(max_speed_time, 2), round(max_speed_value, 2))
-
-    fig.add_trace(
-        go.Scatter(x=[max_speed_time], y=[max_speed_value],
-                   mode='markers',
-                   marker=dict(size=10, color='#fff', symbol='diamond'),
-                   hoverinfo='text',
-                   text=[max_speed_text] * len(avg_times),
-                   showlegend=False  # Set showlegend to False to hide this trace in the legend
-                   )
-    )
-
-    fig.update_layout(
-        plot_bgcolor='#0B2447',
-        paper_bgcolor='#0B2447',
-        xaxis=dict(
-            showgrid=False,
-            gridcolor='#6CE5E8',
-            title_font=dict(color='white'),
-            tickfont=dict(color='white')
-            ),
-        yaxis=dict(
-            showgrid=False,
-            gridcolor='#6CE5E8',
-            title_font=dict(color='white'),
-            tickfont=dict(color='white')
-            ),
-        title_text='Time - Speed',
-        title_font=dict(color='white', size=12),
-        margin=dict(
-            # Adjust margins to control the space around the graph
-            l=10, r=10, t=25, b=10
-        )
-    )
-
-    fig.update_traces(
-        hoverlabel=dict(
-            bgcolor='#123C76',
-            bordercolor='#123C76',
-            font=dict(size=10, color='white')
-        )
-    )
-
-    plot_div = plot(fig, output_type='div', include_plotlyjs=False)
-    return plot_div
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=averaged_data['Time'], y=averaged_data['Speed'], mode='lines+markers', marker=dict(size=4, color='#6CE5E8'), hoverinfo='text', text=['Time={} min, Speed={} Km/h'.format(round(time, 2), round(speed, 2)) for time, speed in zip(avg_times, avg_speeds)], textfont=dict(size=10), showlegend=False))
+    fig.add_shape(dict(type='line', x0=0, x1=max_time, y0=avg_speed, y1=avg_speed, line=dict(color='#6CE5E8', width=2, dash='dash'), showlegend=False))
+    fig.add_trace(go.Scatter(x=[max_speed_time], y=[max_speed_value], mode='markers', marker=dict(size=10, color='#fff', symbol='diamond'), hoverinfo='text', text=[max_speed_text] * len(avg_times), showlegend=False))
+    
+    fig.update_layout(plot_bgcolor='#0B2447', paper_bgcolor='#0B2447', xaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white'), tickfont=dict(color='white')), yaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white'), tickfont=dict(color='white')), title_text='Time - Speed', title_font=dict(color='white', size=12), margin=dict(l=10, r=20, t=25, b=10))
+    fig.update_traces(hoverlabel=dict(bgcolor='#123C76', bordercolor='#123C76', font=dict(size=10, color='white')))
+    
+    return plot(fig, output_type='div', include_plotlyjs=False)
 
 
 
