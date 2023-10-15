@@ -40,16 +40,16 @@
             <div class="col key-info d-flex align-items-center justify-content-center">
                 <p>{{ basic_info[8] }} Km/ h Max.</p>
             </div>
-            <div class="col key-info d-flex align-items-center justify-content-center">
+            <!-- <div class="col key-info d-flex align-items-center justify-content-center">
                 <p>CALORIES</p>
-            </div>
+            </div> -->
         </div>
     </div>
 
     <!-- CHARTS / MAP -->
     <div class="container-fluid graphical-container">
         <div class="row d-flex align-items-center justify-content-center">
-            <div class="col-3">
+            <div class="col-12 col-md-3">
                 <div class="graphical chart_1">
                     {{ graphical[0] | safe }}
                 </div>
@@ -75,12 +75,11 @@
             </div>
             
 
-            <div class="col-3 graphical map">
+            <div class="col-12 col-md-5 graphical map">
                 <iframe src="/iframe" width="100%" height="400" frameborder="0"></iframe>
             </div>
 
-            <div class="col-3">
-
+            <div class="col-12 col-md-3">
                 <div class="graphical chart_2">
                     {{ graphical[2] | safe }}
                 </div>
@@ -124,9 +123,9 @@
                 <img src="{{ fun_stats[2][0][2] }}" class="fun-stats-images">
                 <p>{{ fun_stats[2][0][1] }} Km/h</p>
             </div>
-            <div class="col fun-stats">
+            <!-- <div class="col fun-stats">
                 <p>XX.X Big Macs ¿</p><img src="/static/images/burger.png" class="fun-stats-images">
-            </div>
+            </div> -->
         </div>
     </div>
 
