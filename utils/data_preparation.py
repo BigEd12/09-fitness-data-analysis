@@ -105,6 +105,9 @@ def seg_speed(row, df):
         return float('NaN')
     
     seconds = row['Time Difference'].total_seconds()
+    if seconds == 0:
+        return 0
+    
     distance_diff = row['Total Distance (M)'] - df.loc[row.name - 1, 'Total Distance (M)']
     
     return (distance_diff / 1000) / (seconds / 3600)
@@ -134,14 +137,9 @@ def calc_total_distance(df):
     """
     Calculates the total distance in the ride in Km.
     """
-    total_distance = 0
-    for i in range(1, len(df)):
-        lat1, lon1 = df['Latitude'][i - 1], df['Longitude'][i - 1]
-        lat2, lon2 = df['Latitude'][i], df['Longitude'][i]
-
-        seg_distance = haversine(lat1, lon1, lat2, lon2)
-        total_distance += seg_distance
-        
+    total_distance = sum(haversine(df['Latitude'][i - 1], df['Longitude'][i - 1], df['Latitude'][i], df['Longitude'][i])
+                        for i in range(1, len(df))
+                        )
     return total_distance
 
 def calc_moving_time(df):
