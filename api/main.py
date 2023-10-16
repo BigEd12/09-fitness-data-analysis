@@ -3,6 +3,8 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, send_file, send_from_directory
 from flask_bootstrap import Bootstrap
 
+from datetime import datetime
+
 from utils import data_preparation, data_visualisation
 
 #---------------------- FLASK ----------------------#
@@ -18,7 +20,10 @@ def index():
     """
     Load file page
     """
-    return render_template('index.html')
+    year = datetime.now().year
+    footer_info = [year]
+    
+    return render_template('index.html', footer_info=footer_info)
 
 uploaded_file_data = None
 
@@ -45,6 +50,9 @@ def dash():
         
         animal_speed = data_preparation.find_faster_slower_animals(basic_info[8])
         basic_info
+        
+        year = datetime.now().year
+        footer_info = [year]
 
         
         if request.method == 'POST':
@@ -62,7 +70,7 @@ def dash():
         fun_stats = [equator, closest_peak, animal_speed]
             
     
-    return render_template('dashboard.html', basic_info=basic_info, graphical=graphical, fun_stats=fun_stats)
+    return render_template('dashboard.html', basic_info=basic_info, graphical=graphical, fun_stats=fun_stats, footer_info=footer_info)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

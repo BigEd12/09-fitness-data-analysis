@@ -137,7 +137,7 @@ def time_altitude_graph(df):
     fig.update_layout(title_text='Time - Altitude', title_font=dict(color='white', size=10))
     fig.update_layout(margin=dict(l=10, r=10, t=25, b=10))
 
-    fig.update_traces(hoverlabel=dict(bgcolor='#123C76', bordercolor='#123C76', font=dict(size=10, color='white')))
+    fig.update_traces(hoverlabel=dict(bgcolor='#123C76', bordercolor='#123C76', font=dict(size=10, color='white'), namelength=-1))
 
     plot_div = plot(fig, output_type='div', include_plotlyjs=False)
     return plot_div
@@ -297,7 +297,7 @@ def time_speed_graph(df):
     fig.add_trace(go.Scatter(x=[max_speed_time], y=[max_speed_value], mode='markers', marker=dict(size=10, color='#fff', symbol='diamond'), hoverinfo='text', text=[max_speed_text] * len(avg_times), showlegend=False))
     
     fig.update_layout(plot_bgcolor='#0B2447', paper_bgcolor='#0B2447', xaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white'), tickfont=dict(color='white')), yaxis=dict(showgrid=False, gridcolor='#6CE5E8', title_font=dict(color='white'), tickfont=dict(color='white')), title_text='Time - Speed', title_font=dict(color='white', size=12), margin=dict(l=10, r=20, t=25, b=10))
-    fig.update_traces(hoverlabel=dict(bgcolor='#123C76', bordercolor='#123C76', font=dict(size=10, color='white')))
+    fig.update_traces(hoverlabel=dict(bgcolor='#123C76', bordercolor='#123C76', font=dict(size=10, color='white'), namelength=-1))
     
     return plot(fig, output_type='div', include_plotlyjs=False)
 

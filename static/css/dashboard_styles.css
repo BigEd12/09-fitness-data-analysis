@@ -56,6 +56,9 @@ a {
     padding: 0 !important;
 }
 
+.chart_1 {
+    overflow: visible;
+}
 
 /* GRAPHICAL SELECTIONS */
 .dropdown {
@@ -91,6 +94,28 @@ a {
     transition: box-shadow 1s;
 }
 
+
+/* FOOTER */
+.footer-row p {
+    margin-bottom: 8px !important;
+}
+
+.footer-icon {
+    padding: 1% 1% 0 1%;
+}
+
+.footer-container {
+    position: fixed;
+    bottom: 2%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #0B2447; /* Set the background color as needed */
+    color: white;
+    text-align: center;
+    font-size: 12px;
+}
+
 /* HOVER EFFECTS */
 @media screen and (min-width: 768px) {
     .key-info:hover,
@@ -101,7 +126,7 @@ a {
 
 
     .chart_1:hover {
-        transform: scale(1.5);
+        transform: scaleX(1.8) scaleY(1.5);
         transform-origin: left center;
     }
 
