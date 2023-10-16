@@ -111,6 +111,17 @@ a {
     font-size: 12px;
 }
 
+.footer-container {
+    position: fixed;
+    bottom: 1%;
+    left: 0;
+    right: 0; /* Set both left and right to 0 */
+    width: 100%;
+    background-color: #0B2447;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+}
 
 /* HOVER EFFECTS */
 @media screen and (min-width: 768px) {

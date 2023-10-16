@@ -15,7 +15,10 @@ def create_df(file):
     """
     Takes a file path and returns a Pandas DataFrame
     """
-    file_extension = file.filename.split('.')[-1].lower()
+    if type(file) == str:
+        file_extension = file.split('.')[-1].lower()
+    else:
+        file_extension = file.filename.split('.')[-1].lower()
     
     if file_extension == 'tcx':
         return create_df_from_tcx(file)
@@ -50,33 +53,37 @@ def create_df_from_gpx(file):
     """
     Takes a GPX file and returns a Pandas DataFrame
     """
-    gpx = gpxpy.parse(file)
-    
-    data = []
-    cumulative_distance = 0.0
-    prev_point = None
-    
-    for track in gpx.tracks:
-        for segment in track.segments:
-            segment_data = []
-            for point in segment.points:
-                time = point.time
-                lat = point.latitude
-                lon = point.longitude
-                altitude = point.elevation
+    if isinstance(file, str):
+        with open(file, 'r') as file_new:
+            df = create_df_from_gpx(file_new)
+    else:
+        gpx = gpxpy.parse(file)
+        
+        data = []
+        cumulative_distance = 0.0
+        prev_point = None
+        
+        for track in gpx.tracks:
+            for segment in track.segments:
+                segment_data = []
+                for point in segment.points:
+                    time = point.time
+                    lat = point.latitude
+                    lon = point.longitude
+                    altitude = point.elevation
 
-                if prev_point is not None:
-                    distance = point.distance_3d(prev_point)
-                    cumulative_distance += distance
-                else:
-                    distance = 0.0
+                    if prev_point is not None:
+                        distance = point.distance_3d(prev_point)
+                        cumulative_distance += distance
+                    else:
+                        distance = 0.0
 
-                segment_data.append([time, lat, lon, altitude, cumulative_distance, cumulative_distance / 1000.0])
-                prev_point = point
+                    segment_data.append([time, lat, lon, altitude, cumulative_distance, cumulative_distance / 1000.0])
+                    prev_point = point
 
-            data.extend(segment_data)
+                data.extend(segment_data)
 
-    df = pd.DataFrame(data, columns=['Time', 'Latitude', 'Longitude', 'Altitude (M)', 'Total Distance (M)', 'Total Distance (KM)'])
+        df = pd.DataFrame(data, columns=['Time', 'Latitude', 'Longitude', 'Altitude (M)', 'Total Distance (M)', 'Total Distance (KM)'])
     return df
 # ----------------------------------------------------------------------------------------
 def prepare_df(df):

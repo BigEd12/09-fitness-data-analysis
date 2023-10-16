@@ -72,32 +72,66 @@ def dash():
     
     return render_template('dashboard.html', basic_info=basic_info, graphical=graphical, fun_stats=fun_stats, footer_info=footer_info)
 
+# @app.route('/upload', methods=['POST'])
+# def upload_file():
+#     global uploaded_file_data
+
+#     if 'file' not in request.files:
+#         return "No file part"
+
+#     file = request.files['file']
+
+#     if file.filename == '':
+#         return "No selected file"
+    
+#     df = data_preparation.create_df(file)
+#     data_preparation.prepare_df(df)
+    
+
+#     uploaded_file_data = df
+
+#     return redirect(url_for('dash'))
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     global uploaded_file_data
 
-    if 'file' not in request.files:
-        return "No file part"
-
-    file = request.files['file']
-
-    if file.filename == '':
-        return "No selected file"
+    if 'file' in request.files:
+        file = request.files['file']
+        if file.filename != '':
+            df = data_preparation.create_df(file)
+            data_preparation.prepare_df(df)
+            uploaded_file_data = df
+            return redirect(url_for('dash'))
     
-    df = data_preparation.create_df(file)
-    data_preparation.prepare_df(df)
+    path_1 = 'sample_data/1.gpx'
+    path_2 = 'sample_data/2.gpx'
+    path_3 = 'sample_data/3.gpx'
+    selected_radio_option = request.form.get('inlineRadioOptions')
+    if selected_radio_option:
+
+        if selected_radio_option == 'option1':
+            print(selected_radio_option)
+            df = data_preparation.create_prepare_df(path_1)
+            print(df.head())
+            uploaded_file_data = df
+            pass
+        elif selected_radio_option == 'option2':
+            df = data_preparation.create_prepare_df(path_2)
+            uploaded_file_data = df
+            pass
+        elif selected_radio_option == 'option3':
+            df = data_preparation.create_prepare_df(path_3)
+            uploaded_file_data = df
+            pass    
+        return redirect(url_for('dash'))
     
-
-    uploaded_file_data = df
-
-    return redirect(url_for('dash'))
+    return "No file or radio option selected"
 
 @app.route('/iframe')
 def iframe():
     global uploaded_file_data
-    print(type(uploaded_file_data))
     if uploaded_file_data is not None:
-        print('ok here')
         map_html = data_visualisation.plot_line_map(uploaded_file_data)
     else:
         map_html = "<p>No data available</p>"
