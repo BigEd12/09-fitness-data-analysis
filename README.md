@@ -6,23 +6,7 @@ With the cycling dashboard, you can visualize and analyze your cycling data in a
 
 You are also able to interact with the the dashboard, and manipulate the graphs.
 
-# How
-The data provided by a .tcx or .gpx file is multiple entries for each of the following:
-- Timestamp
-- Latitude
-- Longitude
-- Altitude
 
-From this, it is created into a Pandas DataFrame and the data is prepared. With some feature engineering, the end DataFrame contains columns on:
-- Timestamp
-- Latitude
-- Longitude
-- Altitude
-- Total Distance in M and Km
-- Time difference between each section
-- Altitude difference between each section
-- Speed in that segment
-- Total ime elapsed in minutes
 
 **There are two options to view use this, the first is to clone this repo. It is also hosted online with Heroku at this [link](https://cycling-dashboard-3d5bfb76be1b.herokuapp.com/) (please bear in mind that load times are longer, especially for maps).**
 
@@ -41,15 +25,24 @@ From this, it is created into a Pandas DataFrame and the data is prepared. With 
 
 ## Demo
 Screenshots from different rides:
+Home screen>
+![Home](./info/screenshots/5.png)
+
+Ride 1:
 ![Ride 1](./info/screenshots/1.png)
+Ride 2:
 ![Ride 2](./info/screenshots/2.png)
+
+Ride 3 (with hover zoom on graph)
 ![Ride 3](./info/screenshots/3.png)
+
+Ride 4 (with hover zoom on graph)
 ![Ride 4](./info/screenshots/4.png)
 
 
 ## Features
 
-- **Dashboard Creation**: Upload .tcx files from your cycling activities and generate a comprehensive dashboard.
+- **Dashboard Creation**: Upload .tcx, .gpx files from your cycling activities, or use one of the example rides, and generate a comprehensive dashboard.
 
 - **Data Visualization**: Utilizes Plotly for creating interactive and visually appealing charts, such as time-speed graphs and altitude-distance-speed graphs.
 
@@ -85,11 +78,11 @@ Screenshots from different rides:
 #### Strava
 1. Head to www.strava.com and log in
 2. On the dashboard, click here on the left:
-   ![Alt text](./info/strava/1.png)
+   ![Alt text](./info/strava_files/1.png)
 3. Select an activity:
-   ![Alt text](./info/strava/2.png)
+   ![Alt text](./info/strava_files/2.png)
 4. Click to open the menu, and export GPX:
-   ![Alt text](./info/strava/3.png)
+   ![Alt text](./info/strava_files/3.png)
 
 ### Usage
 
@@ -102,8 +95,8 @@ Screenshots from different rides:
    - **Comparisons**: See how your ride compares against differents routes, peaks and animals.
    
 
-# How
-The data provided by a .tcx or .gpx file is multiple entries for each of the following:
+# How it works
+The data provided by a .tcx or .gpx file contains multiple entries for each of the following:
 - Timestamp
 - Latitude
 - Longitude
