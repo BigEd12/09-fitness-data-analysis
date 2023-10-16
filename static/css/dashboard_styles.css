@@ -42,6 +42,9 @@ a {
     margin: 2px !important;
 }
 
+.key-info-container .icon {
+    padding: 5%;
+}
 /* GRAPHICAL INFO */
 .graphical-container {
     justify-content: center;
@@ -104,26 +107,22 @@ a {
     padding: 1% 1% 0 1%;
 }
 
-.footer-container {
-    position: fixed;
-    bottom: 2%;
-    left: 0;
-    right: 0;
-    width: 100%;
-    background-color: #0B2447; /* Set the background color as needed */
-    color: white;
-    text-align: center;
+#footer {
     font-size: 12px;
 }
 
+
 /* HOVER EFFECTS */
 @media screen and (min-width: 768px) {
-    .key-info:hover,
-    .fun-stats:hover {
+    .key-info:hover {
         animation: pulse 1.5s infinite;
         transform: scale(1.7);
     }
 
+    .fun-stats:hover {
+        animation: pulse 1.5s infinite;
+        transform: scale(1.3);
+    }
 
     .chart_1:hover {
         transform: scaleX(1.8) scaleY(1.5);
