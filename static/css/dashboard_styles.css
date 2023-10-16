@@ -1,5 +1,4 @@
 body {
-    /* display: flex; */
     background-color: #0B2447 !important;
     justify-content: center;
     align-items: center;
@@ -115,7 +114,7 @@ a {
     position: fixed;
     bottom: 1%;
     left: 0;
-    right: 0; /* Set both left and right to 0 */
+    right: 0;
     width: 100%;
     background-color: #0B2447;
     color: white;

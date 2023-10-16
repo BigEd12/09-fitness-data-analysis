@@ -62,7 +62,6 @@ def dash():
                 chart_1 = data_visualisation.create_custom_graph(df, parameter1, parameter2)
                 
             elif request.form['form_name'] == 'form2':
-                print(f'name: {request.form["form_name"]}')
                 parameter = request.form.get('parameter')
                 chart_2 = data_visualisation.altitude_time_distance_speed_graph(df, parameter)
                 
@@ -72,25 +71,6 @@ def dash():
     
     return render_template('dashboard.html', basic_info=basic_info, graphical=graphical, fun_stats=fun_stats, footer_info=footer_info)
 
-# @app.route('/upload', methods=['POST'])
-# def upload_file():
-#     global uploaded_file_data
-
-#     if 'file' not in request.files:
-#         return "No file part"
-
-#     file = request.files['file']
-
-#     if file.filename == '':
-#         return "No selected file"
-    
-#     df = data_preparation.create_df(file)
-#     data_preparation.prepare_df(df)
-    
-
-#     uploaded_file_data = df
-
-#     return redirect(url_for('dash'))
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -111,9 +91,7 @@ def upload_file():
     if selected_radio_option:
 
         if selected_radio_option == 'option1':
-            print(selected_radio_option)
             df = data_preparation.create_prepare_df(path_1)
-            print(df.head())
             uploaded_file_data = df
             pass
         elif selected_radio_option == 'option2':

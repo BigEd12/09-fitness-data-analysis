@@ -1,19 +1,51 @@
-# 09-fitness-data-analysis
-
 # Cycling Dashboard
 
-This cycling dashboard is an interactive web application that allows you to create personalized cycling dashboards from .tcx or .gpx files, which you can download from various sources, including Strava. With the cycling dashboard, you can visualize and analyze your cycling data in a user-friendly and informative way.
+This cycling dashboard is an interactive web application that allows you to create personalized cycling dashboards from .tcx or .gpx files, which you can download from various sources, including Strava. 
 
-There are two options to view use this, the first is to clone this repo. It is also online at this [link](https://cycling-dashboard-3d5bfb76be1b.herokuapp.com/) (please bear in mind that load times are longer, especially for maps).
+With the cycling dashboard, you can visualize and analyze your cycling data in a user-friendly and informative way.
+
+You are also able to interact with the the dashboard, and manipulate the graphs.
+
+# How
+The data provided by a .tcx or .gpx file is multiple entries for each of the following:
+- Timestamp
+- Latitude
+- Longitude
+- Altitude
+
+From this, it is created into a Pandas DataFrame and the data is prepared. With some feature engineering, the end DataFrame contains columns on:
+- Timestamp
+- Latitude
+- Longitude
+- Altitude
+- Total Distance in M and Km
+- Time difference between each section
+- Altitude difference between each section
+- Speed in that segment
+- Total ime elapsed in minutes
+
+**There are two options to view use this, the first is to clone this repo. It is also hosted online with Heroku at this [link](https://cycling-dashboard-3d5bfb76be1b.herokuapp.com/) (please bear in mind that load times are longer, especially for maps).**
 
 ## Contents
+- [Demo](#demo)
 - [Features](#features)
 - [Getting Started](#getting-started)
    - [Requirements](#requirements)
    - [Installation](#installation)
-- [Sourcing data](#sourcing-data)
-    - [Strava](#strava)
-- [Usage](#usage)
+   - [Sourcing data](#sourcing-data)
+      - [Strava](#strava)
+   - [Usage](#usage)
+- [How it works](#how-it-works)
+- [Contributing](#contributing)
+- [Roadmap](#roadmap)
+
+## Demo
+Screenshots from different rides:
+![Ride 1](./info/screenshots/1.png)
+![Ride 2](./info/screenshots/2.png)
+![Ride 3](./info/screenshots/3.png)
+![Ride 4](./info/screenshots/4.png)
+
 
 ## Features
 
@@ -31,9 +63,12 @@ There are two options to view use this, the first is to clone this repo. It is a
 
 - Python 3.x
 - Flask
-- Plotly
+- Flask-Bootstrap
 - Folium
+- gpxpy
+- Plotly
 - Pandas
+
 
 ### Installation
 
@@ -43,20 +78,20 @@ There are two options to view use this, the first is to clone this repo. It is a
 4. Run the application
 
    ```bash
-   python main.py
+   python api/main.py
 
-## Sourcing Data
+### Sourcing Data
 
-### Strava
+#### Strava
 1. Head to www.strava.com and log in
 2. On the dashboard, click here on the left:
-   ![Alt text](info/strava/1.png)
+   ![Alt text](./info/strava/1.png)
 3. Select an activity:
-   ![Alt text](info/strava/2.png)
+   ![Alt text](./info/strava/2.png)
 4. Click to open the menu, and export GPX:
-   ![Alt text](info/strava/3.png)
-   
-## Usage
+   ![Alt text](./info/strava/3.png)
+
+### Usage
 
 1. **Data**: On the web application, upload your .tcx or .gpx file in the upload OR, if you do not have data, choose one of the three radio selections to see sample data.
 
@@ -65,3 +100,40 @@ There are two options to view use this, the first is to clone this repo. It is a
    - **Interactive Charts**: Two charts with adjustable options. Use the dropdowns underneath to change the x and y axis in the left-most chart, and select either the distance or time for the x axis on the right-most chart.
    - **Interactive Map**: View an interactive map with your route plotted.
    - **Comparisons**: See how your ride compares against differents routes, peaks and animals.
+   
+
+# How
+The data provided by a .tcx or .gpx file is multiple entries for each of the following:
+- Timestamp
+- Latitude
+- Longitude
+- Altitude
+
+From this, it is created into a Pandas DataFrame and the data is prepared. With some feature engineering, the end DataFrame contains columns on:
+- Timestamp
+- Latitude
+- Longitude
+- Altitude
+- Total Distance in M and Km
+- Time difference between each section
+- Altitude difference between each section
+- Speed in that segment
+- Total time elapsed in minutes
+
+
+## Contributing
+I would welcome contributions on the project. 
+
+As I'm putting it out, there are bound to be a number of bugs that I haven't thought about. Please let me know if you find any, or go at it!
+
+I've mentioned a couple of things I'll focus on next in the [Roadmap](#roadmap) section below.
+
+## Roadmap
+
+Things I'll focus on next, in no particular order:
+
+- Adding a light theme
+- Adding other themes
+- Handling AJAX requests for the charts
+- Improving design
+- Adding a calorie counting function, and incorporate it into the stats
