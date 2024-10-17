@@ -11,7 +11,7 @@ def create_prepare_df(path):
     return df
 
 
-def create_df(file):
+def create_df(file: str) -> pd.DataFrame:
     """
     Takes a file path and returns a Pandas DataFrame
     """
